@@ -1,0 +1,33 @@
+# Dependências
+node_modules/
+
+# Build
+dist/
+
+# Variáveis de ambiente (nunca commitar)
+.env
+.env.local
+.env.*.local
+
+# Prisma
+prisma/migrations/*.sql
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Agentes de IA (uso interno)
+.agents/
+.skills/
+
+# Cobertura de testes
+coverage/
