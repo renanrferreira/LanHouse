@@ -14,25 +14,25 @@ Cada task segue o `aiRules.md`: plano aprovado antes, **teste escrito primeiro**
 
 ## Como é o teste
 
-| # | Regra |
-|---|---|
+| # | Regra                                                                                                         |
+| - | ------------------------------------------------------------------------------------------------------------- |
 | 1 | **Um teste simples por task**, que confere o resultado principal. Regras centrais podem ter mais de um. |
-| 2 | Ferramenta de teste: Vitest. Testes rodam só em banco de teste (`DATABASE_TEST_URL`). |
-| 3 | A saída mostra `✔` quando passou e `✖` quando falhou, com o que veio de errado. |
-| 4 | O teste fica em `tests/<arquivo testado>.test.ts`. |
+| 2 | Ferramenta de teste: Vitest. Testes rodam só em banco de teste (`DATABASE_TEST_URL`).                      |
+| 3 | A saída mostra `✔` quando passou e `✖` quando falhou, com o que veio de errado.                        |
+| 4 | O teste fica em `tests/<arquivo testado>.test.ts`.                                                          |
 
 ---
 
 ## Etapas da especificação
 
-- [x] Etapa A — Estrutura inicial do `.context/` e regras de IA criadas
-- [x] Etapa B — Validação e aprovação das regras de negócio, contexto e requisitos (`negocio/`)
-- [x] Etapa C — Validação e aprovação do modelo de dados no MySQL (`dados/`)
-- [x] Etapa D — Validação e aprovação dos contratos da API e 3 CRUDs (`api/`)
-- [x] Etapa E — Definição e aprovação da stack técnica (Node.js + MySQL) (`arquitetura/stack.md`)
-- [x] Etapa F — Aprovação de segurança e autenticação simplificada (`seguranca/`)
-- [x] Etapa G — Aprovação da arquitetura de software e migrations (`arquitetura/`, `migrations/`)
-- [x] Etapa H — Escopo delimitado sem front-end (foco exclusivo em API Back-End e Swagger)
+- [X] Etapa A — Estrutura inicial do `.context/` e regras de IA criadas
+- [X] Etapa B — Validação e aprovação das regras de negócio, contexto e requisitos (`negocio/`)
+- [X] Etapa C — Validação e aprovação do modelo de dados no MySQL (`dados/`)
+- [X] Etapa D — Validação e aprovação dos contratos da API e 3 CRUDs (`api/`)
+- [X] Etapa E — Definição e aprovação da stack técnica (Node.js + MySQL) (`arquitetura/stack.md`)
+- [X] Etapa F — Aprovação de segurança e autenticação simplificada (`seguranca/`)
+- [X] Etapa G — Aprovação da arquitetura de software e migrations (`arquitetura/`, `migrations/`)
+- [X] Etapa H — Escopo delimitado sem front-end (foco exclusivo em API Back-End e Swagger)
 
 ---
 
@@ -40,80 +40,81 @@ Cada task segue o `aiRules.md`: plano aprovado antes, **teste escrito primeiro**
 
 As tasks de implementação seguem rigorosamente a especificação aprovada. Cada task possui: **Entrega**, **Atende** (`RN`, `RF`, `RNF`), **Teste** e **depende de**.
 
-### Task 1: Setup do Projeto e Configuração do Ambiente
-- **Entrega:** Inicialização do `package.json`, `tsconfig.json`, `.env.example` e configuração do Vitest.
-- **Atende:** `RNF-01`, `RNF-05`
-- **Teste:** `tests/setup.test.ts` (verifica carregamento de variáveis de ambiente e padronização UTC).
-- **Depende de:** Nenhuma.
+- [ ] **Task 1: Setup do Projeto e Configuração do Ambiente**
 
-### Task 2: Modelagem Prisma e Migrations MySQL
-- **Entrega:** `prisma/schema.prisma` mapeando `Usuario`, `Cliente`, `Estacao`, `Tarifa`, `Sessao` e `TransacaoCredito`, gerando a migration inicial para MySQL.
-- **Atende:** `RN-01`, `RN-04`, `RN-13`, `RNF-04`
-- **Teste:** `tests/database.test.ts` (valida conexão com banco de testes e integridade das tabelas).
-- **Depende de:** Task 1.
+  - **Entrega:** Inicialização do `package.json`, `tsconfig.json`, `.env.example` e configuração do Vitest.
+  - **Atende:** `RNF-01`, `RNF-05`
+  - **Teste:** `tests/setup.test.ts` (verifica carregamento de variáveis de ambiente e padronização UTC).
+  - **Depende de:** Nenhuma.
+- [ ] **Task 2: Modelagem Prisma e Migrations MySQL**
 
-### Task 3: Seed com Dados Iniciais Fictícios
-- **Entrega:** `prisma/seed.ts` populando atendente padrão, computadores e tarifas por categoria.
-- **Atende:** `migrations/migrations.md`
-- **Teste:** `tests/seed.test.ts` (confere inserção de dados iniciais no banco de teste).
-- **Depende de:** Task 2.
+  - **Entrega:** `prisma/schema.prisma` mapeando `Usuario`, `Cliente`, `Estacao`, `Tarifa`, `Sessao` e `TransacaoCredito`, gerando a migration inicial para MySQL.
+  - **Atende:** `RN-01`, `RN-04`, `RN-13`, `RNF-04`
+  - **Teste:** `tests/database.test.ts` (valida conexão com banco de testes e integridade das tabelas).
+  - **Depende de:** Task 1.
+- [ ] **Task 3: Seed com Dados Iniciais Fictícios**
 
-### Task 4: Tratamento de Erros e Catálogo Unificado
-- **Entrega:** `errors/AppError.ts`, `constants/ErrorCodes.ts` e middleware central de erro.
-- **Atende:** `RNF-01`, catálogo de erros em `contratos.md`
-- **Teste:** `tests/ErrorHandler.test.ts` (valida respostas de erro `{ sucesso: false, erro: { codigo, mensagem, detalhes } }`).
-- **Depende de:** Task 1.
+  - **Entrega:** `prisma/seed.ts` populando atendente padrão, computadores e tarifas por categoria.
+  - **Atende:** `migrations/migrations.md`
+  - **Teste:** `tests/seed.test.ts` (confere inserção de dados iniciais no banco de teste).
+  - **Depende de:** Task 2.
+- [ ] **Task 4: Tratamento de Erros e Catálogo Unificado**
 
-### Task 5: Autenticação de Atendentes e Middleware JWT
-- **Entrega:** `AuthController.ts`, `AuthService.ts`, middleware `Authenticate.ts` e rota `POST /auth/login`.
-- **Atende:** `RF-01`, `RNF-06`
-- **Teste:** `tests/Auth.test.ts` (login gera JWT; credenciais inválidas retornam 401 `INVALID_CREDENTIALS`).
-- **Depende de:** Task 2, Task 4.
+  - **Entrega:** `errors/AppError.ts`, `constants/ErrorCodes.ts` e middleware central de erro.
+  - **Atende:** `RNF-01`, catálogo de erros em `contratos.md`
+  - **Teste:** `tests/ErrorHandler.test.ts` (valida respostas de erro `{ sucesso: false, erro: { codigo, mensagem, detalhes } }`).
+  - **Depende de:** Task 1.
+- [ ] **Task 5: Autenticação de Atendentes e Middleware JWT**
 
-### Task 6: CRUD 1 — Clientes (5 operações)
-- **Entrega:** Rotas, controller, service e repositório de clientes (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
-- **Atende:** `RF-02`, `RN-01`, `RN-02`, `RN-03`
-- **Teste:** `tests/Clientes.test.ts` (testa as 5 operações do CRUD e validação de CPF único).
-- **Depende de:** Task 5.
+  - **Entrega:** `AuthController.ts`, `AuthService.ts`, middleware `Authenticate.ts` e rota `POST /auth/login`.
+  - **Atende:** `RF-01`, `RNF-06`
+  - **Teste:** `tests/Auth.test.ts` (login gera JWT; credenciais inválidas retornam 401 `INVALID_CREDENTIALS`).
+  - **Depende de:** Task 2, Task 4.
+- [ ] **Task 6: CRUD 1 — Clientes (5 operações)**
 
-### Task 7: CRUD 2 — Estações de Trabalho (6 operações)
-- **Entrega:** Rotas, controller, service e repositório de máquinas (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`, `PATCH /:id/status`).
-- **Atende:** `RF-03`, `RN-04`, `RN-05`, `RN-06`
-- **Teste:** `tests/Estacoes.test.ts` (testa as operações de CRUD e transição de status).
-- **Depende de:** Task 5.
+  - **Entrega:** Rotas, controller, service e repositório de clientes (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
+  - **Atende:** `RF-02`, `RN-01`, `RN-02`, `RN-03`
+  - **Teste:** `tests/Clientes.test.ts` (testa as 5 operações do CRUD e validação de CPF único).
+  - **Depende de:** Task 5.
+- [ ] **Task 7: CRUD 2 — Estações de Trabalho (6 operações)**
 
-### Task 8: CRUD 3 — Tarifas por Categoria (5 operações)
-- **Entrega:** Rotas, controller, service e repositório de regras de preço (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
-- **Atende:** `RF-08`, `RN-13`, `RN-14`
-- **Teste:** `tests/Tarifas.test.ts` (testa as operações de CRUD e precisão de tarifas em centavos).
-- **Depende de:** Task 5.
+  - **Entrega:** Rotas, controller, service e repositório de máquinas (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`, `PATCH /:id/status`).
+  - **Atende:** `RF-03`, `RN-04`, `RN-05`, `RN-06`
+  - **Teste:** `tests/Estacoes.test.ts` (testa as operações de CRUD e transição de status).
+  - **Depende de:** Task 5.
+- [ ] **Task 8: CRUD 3 — Tarifas por Categoria (5 operações)**
 
-### Task 9: Créditos e Transações Financeiras
-- **Entrega:** `CreditosController.ts`, `CreditosService.ts` e rotas `POST /creditos/recarga` e `GET /creditos/extrato/:clienteId`.
-- **Atende:** `RF-06`, `RF-07`, `RN-03`, `RN-13`, `RN-15`
-- **Teste:** `tests/Creditos.test.ts` (recarga incrementa saldo em centavos e gera registro imutável).
-- **Depende de:** Task 6.
+  - **Entrega:** Rotas, controller, service e repositório de regras de preço (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
+  - **Atende:** `RF-08`, `RN-13`, `RN-14`
+  - **Teste:** `tests/Tarifas.test.ts` (testa as operações de CRUD e precisão de tarifas em centavos).
+  - **Depende de:** Task 5.
+- [ ] **Task 9: Créditos e Transações Financeiras**
 
-### Task 10: Abertura e Monitoramento de Sessões
-- **Entrega:** Rotas `POST /sessoes`, `GET /sessoes/ativas` e `GET /sessoes/:id`.
-- **Atende:** `RF-04`, `RF-09`, `RN-05`, `RN-07`, `RN-08`, `RN-09`, `RN-10`
-- **Teste:** `tests/SessoesInicio.test.ts` (inicia sessão, muda máquina para `OCUPADA`, rejeita cliente já ocupado).
-- **Depende de:** Task 6, Task 7, Task 8.
+  - **Entrega:** `CreditosController.ts`, `CreditosService.ts` e rotas `POST /creditos/recarga` e `GET /creditos/extrato/:clienteId`.
+  - **Atende:** `RF-06`, `RF-07`, `RN-03`, `RN-13`, `RN-15`
+  - **Teste:** `tests/Creditos.test.ts` (recarga incrementa saldo em centavos e gera registro imutável).
+  - **Depende de:** Task 6.
+- [ ] **Task 10: Abertura e Monitoramento de Sessões**
 
-### Task 11: Endpoint Complexo — Encerramento de Sessão e Tarifação
-- **Entrega:** Rota `POST /sessoes/:id/finalizar` com transação ACID, cálculo de tempo em minutos, débito e liberação da máquina.
-- **Atende:** `RF-05`, `RN-07`, `RN-09`, `RN-10`, `RN-11`, `RN-12`, `RN-13`, `RN-15`
-- **Teste:** `tests/SessoesFinalizar.test.ts` (encerra sessão, debita saldo pré-pago, calcula centavos e libera máquina).
-- **Depende de:** Task 9, Task 10.
+  - **Entrega:** Rotas `POST /sessoes`, `GET /sessoes/ativas` e `GET /sessoes/:id`.
+  - **Atende:** `RF-04`, `RF-09`, `RN-05`, `RN-07`, `RN-08`, `RN-09`, `RN-10`
+  - **Teste:** `tests/SessoesInicio.test.ts` (inicia sessão, muda máquina para `OCUPADA`, rejeita cliente já ocupado).
+  - **Depende de:** Task 6, Task 7, Task 8.
+- [ ] **Task 11: Endpoint Complexo — Encerramento de Sessão e Tarifação**
 
-### Task 12: Documentação com Swagger / OpenAPI
-- **Entrega:** Configuração da rota `/docs` com Swagger UI expondo os schemas e endpoints da API.
-- **Atende:** Requisito de documentação da disciplina.
-- **Teste:** `tests/Swagger.test.ts` (valida status 200 no Swagger UI e especificação OpenAPI).
-- **Depende de:** Task 11.
+  - **Entrega:** Rota `POST /sessoes/:id/finalizar` com transação ACID, cálculo de tempo em minutos, débito e liberação da máquina.
+  - **Atende:** `RF-05`, `RN-07`, `RN-09`, `RN-10`, `RN-11`, `RN-12`, `RN-13`, `RN-15`
+  - **Teste:** `tests/SessoesFinalizar.test.ts` (encerra sessão, debita saldo pré-pago, calcula centavos e libera máquina).
+  - **Depende de:** Task 9, Task 10.
+- [ ] **Task 12: Documentação com Swagger / OpenAPI**
 
-### Task 13: README com Instruções de Execução
-- **Entrega:** `README.md` completo na raiz com instrução de instalação, configuração de banco MySQL, execução de migrations, seed e testes.
-- **Atende:** Requisito de entrega e repositório do trabalho.
-- **Teste:** Validação manual dos comandos de bootstrap descritos no README.
-- **Depende de:** Task 12.
+  - **Entrega:** Configuração da rota `/docs` com Swagger UI expondo os schemas e endpoints da API.
+  - **Atende:** Requisito de documentação da disciplina.
+  - **Teste:** `tests/Swagger.test.ts` (valida status 200 no Swagger UI e especificação OpenAPI).
+  - **Depende de:** Task 11.
+- [ ] **Task 13: README com Instruções de Execução**
+
+  - **Entrega:** `README.md` completo na raiz com instrução de instalação, configuração de banco MySQL, execução de migrations, seed e testes.
+  - **Atende:** Requisito de entrega e repositório do trabalho.
+  - **Teste:** Validação manual dos comandos de bootstrap descritos no README.
+  - **Depende de:** Task 12.

@@ -2,9 +2,9 @@
 
 Definição das rotas HTTP, convenções de URI, métodos, perfis autorizados e requisitos atendidos.
 
-- **Versão:** 0.1
-- **Data:** 10/11/2026
-- **Status:** proposto
+- **Versão:** 1.0
+- **Data:** 11/11/2026
+- **Status:** aprovado
 
 ## 1. Regras Gerais de Rota
 
@@ -26,20 +26,28 @@ Definição das rotas HTTP, convenções de URI, métodos, perfis autorizados e 
 
 | Método | Rota | Descrição | Quem usa | Atende | Status |
 |---|---|---|---|---|---|
-| `POST` | `/auth/login` | Autentica usuário e retorna token JWT | Todos | `RF-01` | proposto |
-| `GET` | `/clientes` | Lista clientes (com paginação e busca) | `ATENDENTE` | `RF-02` | proposto |
-| `POST` | `/clientes` | Cadastra novo cliente | `ATENDENTE` | `RF-02` | proposto |
-| `GET` | `/clientes/:id` | Obtém dados detalhados do cliente | `ATENDENTE` | `RF-02` | proposto |
-| `PUT` | `/clientes/:id` | Atualiza dados cadastrais do cliente | `ATENDENTE` | `RF-02` | proposto |
-| `DELETE` | `/clientes/:id` | Desativação lógica do cliente | `ATENDENTE` | `RF-02` | proposto |
-| `GET` | `/estacoes` | Lista todas as estações e estados atuais | `ATENDENTE` | `RF-03`, `RF-09` | proposto |
-| `POST` | `/estacoes` | Cadastra nova estação de trabalho | `ATENDENTE` | `RF-03` | proposto |
-| `PATCH` | `/estacoes/:id/status` | Altera status manual (ex.: manutenção) | `ATENDENTE` | `RF-03` | proposto |
-| `POST` | `/sessoes` | Inicia uma nova sessão de uso | `ATENDENTE` | `RF-04` | proposto |
-| `GET` | `/sessoes/ativas` | Lista todas as sessões em andamento | `ATENDENTE` | `RF-04`, `RF-09` | proposto |
-| `POST` | `/sessoes/:id/finalizar` | Finaliza sessão e calcula valor final | `ATENDENTE` | `RF-05` | proposto |
-| `POST` | `/creditos/recarga` | Registra recarga de créditos para cliente | `ATENDENTE` | `RF-06` | proposto |
-| `GET` | `/creditos/extrato/:clienteId` | Consulta extrato de transações do cliente | `ATENDENTE` | `RF-07` | proposto |
-| `GET` | `/tarifas` | Lista tarifas vigentes por categoria | `ATENDENTE` | `RF-08` | proposto |
-| `PUT` | `/tarifas/:id` | Atualiza valor por minuto da tarifa | `ATENDENTE` | `RF-08` | proposto |
+| `POST` | `/auth/login` | Autentica usuário e retorna token JWT | Todos | `RF-01` | aprovado |
+| `GET` | `/clientes` | Lista clientes (com paginação e busca) | `ATENDENTE` | `RF-02` | aprovado |
+| `POST` | `/clientes` | Cadastra novo cliente | `ATENDENTE` | `RF-02` | aprovado |
+| `GET` | `/clientes/:id` | Obtém dados detalhados do cliente | `ATENDENTE` | `RF-02` | aprovado |
+| `PUT` | `/clientes/:id` | Atualiza dados cadastrais do cliente | `ATENDENTE` | `RF-02` | aprovado |
+| `DELETE` | `/clientes/:id` | Desativação lógica do cliente | `ATENDENTE` | `RF-02` | aprovado |
+| `GET` | `/estacoes` | Lista todas as estações e estados atuais | `ATENDENTE` | `RF-03`, `RF-09` | aprovado |
+| `POST` | `/estacoes` | Cadastra nova estação de trabalho | `ATENDENTE` | `RF-03` | aprovado |
+| `GET` | `/estacoes/:id` | Obtém dados detalhados da estação | `ATENDENTE` | `RF-03`, `RF-09` | aprovado |
+| `PUT` | `/estacoes/:id` | Atualiza dados cadastrais da estação | `ATENDENTE` | `RF-03` | aprovado |
+| `DELETE` | `/estacoes/:id` | Desativação lógica da estação | `ATENDENTE` | `RF-03` | aprovado |
+| `PATCH` | `/estacoes/:id/status` | Altera status manual (ex.: manutenção) | `ATENDENTE` | `RF-03` | aprovado |
+| `POST` | `/sessoes` | Inicia uma nova sessão de uso | `ATENDENTE` | `RF-04` | aprovado |
+| `GET` | `/sessoes/ativas` | Lista todas as sessões em andamento | `ATENDENTE` | `RF-04`, `RF-09` | aprovado |
+| `GET` | `/sessoes/:id` | Obtém dados detalhados da sessão | `ATENDENTE` | `RF-04`, `RF-09` | aprovado |
+| `POST` | `/sessoes/:id/finalizar` | Finaliza sessão e calcula valor final | `ATENDENTE` | `RF-05` | aprovado |
+| `POST` | `/creditos/recarga` | Registra recarga de créditos para cliente | `ATENDENTE` | `RF-06` | aprovado |
+| `GET` | `/creditos/extrato/:clienteId` | Consulta extrato de transações do cliente | `ATENDENTE` | `RF-07` | aprovado |
+| `POST` | `/tarifas` | Cadastra tarifa para uma categoria | `ATENDENTE` | `RF-08` | aprovado |
+| `GET` | `/tarifas` | Lista tarifas vigentes por categoria | `ATENDENTE` | `RF-08` | aprovado |
+| `GET` | `/tarifas/:id` | Obtém dados detalhados da tarifa | `ATENDENTE` | `RF-08` | aprovado |
+| `PUT` | `/tarifas/:id` | Atualiza valor por minuto da tarifa | `ATENDENTE` | `RF-08` | aprovado |
+| `DELETE` | `/tarifas/:id` | Desativação lógica da tarifa | `ATENDENTE` | `RF-08` | aprovado |
+| `GET` | `/docs` | Exibe a documentação interativa Swagger UI | Todos | `RNF-01` | aprovado |
 
