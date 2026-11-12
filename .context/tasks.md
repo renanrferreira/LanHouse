@@ -17,8 +17,8 @@ Cada task segue o `aiRules.md`: plano aprovado antes, **teste escrito primeiro**
 | # | Regra                                                                                                         |
 | - | ------------------------------------------------------------------------------------------------------------- |
 | 1 | **Um teste simples por task**, que confere o resultado principal. Regras centrais podem ter mais de um. |
-| 2 | Ferramenta de teste: Vitest. Testes rodam só em banco de teste (`DATABASE_TEST_URL`).                      |
-| 3 | A saída mostra `✔` quando passou e `✖` quando falhou, com o que veio de errado.                        |
+| 2 | Ferramenta de teste: `node:test` nativo do Node.js; `tsx` executa os arquivos TypeScript. Testes rodam só em banco de teste (`DATABASE_TEST_URL`). |
+| 3 | A saída segue o formato TAP: `ok` indica sucesso e `not ok` indica falha, acompanhada da descrição. |
 | 4 | O teste fica em `tests/<arquivo testado>.test.ts`.                                                          |
 
 ---
@@ -42,7 +42,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
 
 - [ ] **Task 1: Setup do Projeto e Configuração do Ambiente**
 
-  - **Entrega:** Inicialização do `package.json`, `tsconfig.json`, `.env.example` e configuração do Vitest.
+  - **Entrega:** Inicialização do `package.json`, `tsconfig.json`, `.env.example` e configuração do runner nativo `node:test` com execução TypeScript via `tsx`.
   - **Atende:** `RNF-01`, `RNF-05`
   - **Teste:** `tests/setup.test.ts` (verifica carregamento de variáveis de ambiente e padronização UTC).
   - **Depende de:** Nenhuma.

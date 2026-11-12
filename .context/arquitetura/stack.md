@@ -19,7 +19,7 @@ A stack tecnológica do projeto foi definida e aprovada com base nos requisitos 
 | **ORM / Migrations** | Prisma ORM | 5.x+ | Mapeamento objeto-relacional, geração de schema e migrations |
 | **Validação de Schemas**| Zod | 3.x+ | Validação estrita de payloads de entrada |
 | **Autenticação / Hash** | JWT + bcryptjs | Atual | Geração de tokens de acesso e hash seguro de senhas |
-| **Suíte de Testes** | Vitest | Atual | Testes unitários e de integração rápidos em banco de teste |
+| **Suíte de Testes** | `node:test` nativo do Node.js, com `tsx` para executar arquivos TypeScript | Node.js >= 20.x LTS | Testes unitários e de integração sem framework externo |
 
 ## 2. Variáveis de Ambiente (.env.example)
 

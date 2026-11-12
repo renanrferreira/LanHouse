@@ -25,6 +25,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.8 | Aprovação das RN-01 a RN-15, IP fixo para estações e categorias COMUM, GAMER e HIGH_END | `negocio` | aprovado |
 | 7.9 | Aprovação do catálogo consolidado das 24 rotas da API | `api` | aprovado |
 | 7.10 | Uso de checkboxes para acompanhar as tasks de implementação | `processoIa` | aprovado |
+| 7.11 | Adoção do runner nativo `node:test` | `codigo` | aprovado |
 
 ---
 
@@ -42,3 +43,4 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.8 | Aprovar formally as regras RN-01 a RN-15, fixar o requisito de IP fixo pré-definido para cada estação no salão (RN-04) e padronizar as categorias de computadores da API e tarifas em COMUM, GAMER e HIGH_END (RN-14). | Validação direta pelo usuário dos controles de rede do salão e da classificação de tipos de máquinas da Lan House. |
 | 7.9 | Aprovar o catálogo consolidado com as 24 rotas da API, incluindo os três CRUDs completos, os endpoints de domínio e a documentação Swagger. | Refletir no catálogo as rotas já definidas nos contratos aprovados e manter sua contagem alinhada à decisão 7.6. |
 | 7.10 | Usar checkboxes pendentes nas tasks de implementação para acompanhar seu progresso. | Tornar visível o estado de cada task, preservando a regra de que só o usuário autoriza marcá-la como concluída. |
+| 7.11 | Adotar o runner nativo `node:test` e usar `tsx` somente para carregar testes TypeScript na versão mínima suportada do Node.js. | Eliminar a dependência de framework externo e manter os testes automatizados na stack aprovada. |
