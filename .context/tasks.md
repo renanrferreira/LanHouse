@@ -2,7 +2,7 @@
 
 Lista das tasks para construir o projeto, na ordem de execução, com o teste de cada uma.
 
-- **Versão:** 1.2
+- **Versão:** 1.3
 - **Data:** 13/11/2026
 - **Marcação:** `[ ]` pendente e `[x]` concluída. Só o usuário permite marcar.
 
@@ -58,7 +58,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RN-01`, `RN-04`, `RN-13`, `RNF-04`
   - **Teste:** `tests/database.test.ts` (valida conexão com banco de testes e integridade das tabelas).
   - **Depende de:** Task 2.
-- [ ] **Task 4: Seed com Dados Iniciais Fictícios**
+- [x] **Task 4: Seed com Dados Iniciais Fictícios**
 
   - **Entrega:** `prisma/seed.ts` populando atendente padrão, computadores e tarifas por categoria.
   - **Atende:** `migrations/migrations.md`

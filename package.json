@@ -10,11 +10,13 @@
     "test": "node --import=tsx --test \"tests/**/*.test.ts\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate:test": "prisma migrate deploy --config prisma.test.config.ts",
+    "prisma:seed": "tsx prisma/seed.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.10.1",
     "@prisma/client": "^7.10.1",
+    "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.10",
     "zod": "^4.6.7"
   },
