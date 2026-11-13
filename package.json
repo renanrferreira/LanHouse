@@ -7,6 +7,7 @@
     "node": ">=20.19.0"
   },
   "scripts": {
+    "dev": "tsx watch src/server.ts",
     "test": "node --import=tsx --test \"tests/**/*.test.ts\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate:test": "prisma migrate deploy --config prisma.test.config.ts",
@@ -19,6 +20,8 @@
     "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.10",
     "express": "^5.3.0",
+    "express-rate-limit": "8.7.3",
+    "jose": "6.2.16",
     "zod": "^4.6.7"
   },
   "devDependencies": {

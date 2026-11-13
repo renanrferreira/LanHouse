@@ -2,8 +2,8 @@
 
 Contratos de requisição e resposta, catálogo de erros padronizado, paginação e contratos detalhados dos 3 CRUDs e endpoints de domínio.
 
-- **Versão:** 1.0
-- **Data:** 10/11/2026
+- **Versão:** 1.1
+- **Data:** 13/11/2026
 - **Status:** aprovado
 
 ## 1. Formato Padrão de Resposta de Sucesso
@@ -70,6 +70,7 @@ Erros de negócio e de validação seguem rigorosamente a seguinte estrutura em 
 | `409` | `STATION_NOT_AVAILABLE` | A estação já está ocupada, desativada ou em manutenção. |
 | `409` | `SESSION_ALREADY_FINISHED` | Sessão já se encontra finalizada ou cancelada. |
 | `422` | `INSUFFICIENT_FUNDS` | Saldo de créditos do cliente é insuficiente para a operação pré-paga. |
+| `429` | `RATE_LIMIT_EXCEEDED` | Limite de requisições de login por IP excedido. O cabeçalho `Retry-After` informa quando tentar novamente. |
 | `500` | `INTERNAL_SERVER_ERROR` | Falha inesperada no servidor. Detalhes internos não são expostos. |
 
 ---
@@ -153,6 +154,7 @@ Categorias padronizadas: `COMUM`, `GAMER`, `HIGH_END`.
     }
   }
   ```
+- **Limite de requisições:** São aceitas até 5 requisições por IP em 15 minutos, contando logins bem-sucedidos e falhos. Ao exceder o limite, a resposta é `429` com `RATE_LIMIT_EXCEEDED`, no formato padrão, e o cabeçalho `Retry-After` em segundos.
 
 ### 5.2 Iniciar Sessão (`POST /sessoes`)
 - **Entrada:**

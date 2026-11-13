@@ -21,6 +21,7 @@ export const ErrorCodes = {
   STATION_NOT_AVAILABLE: { codigo: 'STATION_NOT_AVAILABLE', statusCode: 409 },
   SESSION_ALREADY_FINISHED: { codigo: 'SESSION_ALREADY_FINISHED', statusCode: 409 },
   INSUFFICIENT_FUNDS: { codigo: 'INSUFFICIENT_FUNDS', statusCode: 422 },
+  RATE_LIMIT_EXCEEDED: { codigo: 'RATE_LIMIT_EXCEEDED', statusCode: 429 },
   INTERNAL_SERVER_ERROR: { codigo: 'INTERNAL_SERVER_ERROR', statusCode: 500 },
 } as const;
 

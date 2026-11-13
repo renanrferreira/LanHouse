@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 1.9
+- **Versão:** 2.3
 - **Data:** 13/11/2026
 
 ## Índice
@@ -31,6 +31,10 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.14 | Conclusão da seed inicial fictícia | `processoIa` | aprovado |
 | 7.15 | Escolha do Express para a camada HTTP | `codigo` | aprovado |
 | 7.16 | Conclusão da task de tratamento de erros | `processoIa` | aprovado |
+| 7.17 | Limite de tentativas de login por IP | `seguranca` | aprovado |
+| 7.18 | Conclusão da task de autenticação e proteção do login | `processoIa` | aprovado |
+| 7.19 | Inserção da task de inicialização Express antes dos CRUDs | `processoIa` | aprovado |
+| 7.20 | Conclusão da task de inicialização da aplicação | `processoIa` | aprovado |
 
 ---
 
@@ -54,3 +58,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.14 | Marcar a Task 4 como concluída após aplicar a seed fictícia em `lanhouse_dev` e `lanhouse_test`, validar a reexecução e passar a suíte completa. | Registrar a entrega dos dados iniciais de desenvolvimento e teste, liberando a próxima task de implementação. |
 | 7.15 | Selecionar Express 5 como framework HTTP da aplicação. | Usar a assinatura convencional de middleware para tratar erros e padronizar a integração dos middlewares HTTP seguintes. |
 | 7.16 | Marcar a Task 5 como concluída após validar o catálogo de erros, o middleware Express e a suíte completa. | Registrar a entrega do contrato de erros centralizado e liberar a implementação das próximas funcionalidades da API. |
+| 7.17 | Limitar `POST /auth/login` a 5 requisições por IP em 15 minutos, contando sucessos e falhas, com contagem em memória por processo. Ao exceder o limite, responder `429 RATE_LIMIT_EXCEEDED` e informar a janela de espera por `Retry-After`. | Reduzir tentativas automatizadas de força bruta sem exigir um serviço externo de armazenamento para a instância atual da API. |
+| 7.18 | Marcar a Task 6 como concluída após validar login JWT, middleware Bearer, limite de tentativas e a suíte completa. | Registrar a entrega de autenticação de atendentes e liberar as tasks dependentes de clientes, estações e tarifas. |
+| 7.19 | Inserir a Task 6.1 para compor a aplicação Express, iniciar o servidor e montar a autenticação antes dos CRUDs. | Garantir que o login esteja acessível pela aplicação HTTP e que as tasks de CRUD partam de um ponto comum de montagem de rotas. |
+| 7.20 | Marcar a Task 6.1 como concluída após validar a aplicação Express, a montagem da rota de autenticação e a suíte completa. | Registrar a inicialização da API e liberar a Task 7, que passa a depender da base comum de montagem de rotas. |

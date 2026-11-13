@@ -49,7 +49,7 @@ describe('Tratamento e catálogo de erros', () => {
     });
   });
 
-  it('mapeia os 17 códigos para os status HTTP do contrato', () => {
+  it('mapeia os 18 códigos para os status HTTP do contrato', () => {
     assert.deepEqual(
       Object.entries(ErrorCodes).map(([key, definition]) => [
         key,
@@ -72,6 +72,7 @@ describe('Tratamento e catálogo de erros', () => {
         ['STATION_NOT_AVAILABLE', 409],
         ['SESSION_ALREADY_FINISHED', 409],
         ['INSUFFICIENT_FUNDS', 422],
+        ['RATE_LIMIT_EXCEEDED', 429],
         ['INTERNAL_SERVER_ERROR', 500],
       ],
     );

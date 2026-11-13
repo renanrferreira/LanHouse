@@ -2,8 +2,8 @@
 
 Diretrizes de autenticação, autorização, proteção de dados, tratamento de segredos e conformidade.
 
-- **Versão:** 1.0
-- **Data:** 10/11/2026
+- **Versão:** 1.1
+- **Data:** 13/11/2026
 - **Status:** aprovado
 
 ## 1. Autenticação e Perfis de Acesso
@@ -32,7 +32,7 @@ Diretrizes de autenticação, autorização, proteção de dados, tratamento de 
   - `X-Frame-Options: DENY`
   - `X-Content-Type-Options: nosniff`
   - `Strict-Transport-Security (HSTS)`
-- **Rate Limiting:** Proteção contra ataques de força bruta na rota de login `/auth/login` limitando tentativas por IP ou conta.
+- **Rate Limiting:** A rota `POST /auth/login` aceita até 5 requisições por IP em uma janela de 15 minutos. Requisições bem-sucedidas e falhas contam para o limite. A contagem fica em memória por processo e reinicia quando a API reinicia. Ao exceder o limite, a API retorna `429 RATE_LIMIT_EXCEEDED` e o cabeçalho `Retry-After`, conforme o contrato da API.
 
 ## 5. Proteção de Dados Pessoais (LGPD)
 

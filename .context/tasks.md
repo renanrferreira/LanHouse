@@ -70,30 +70,36 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RNF-01`, catálogo de erros em `contratos.md`
   - **Teste:** `tests/ErrorHandler.test.ts` (valida respostas de erro `{ sucesso: false, erro: { codigo, mensagem, detalhes } }`).
   - **Depende de:** Task 1.
-- [ ] **Task 6: Autenticação de Atendentes e Middleware JWT**
+- [x] **Task 6: Autenticação de Atendentes e Middleware JWT**
 
-  - **Entrega:** `AuthController.ts`, `AuthService.ts`, middleware `Authenticate.ts` e rota `POST /auth/login`.
+  - **Entrega:** `AuthController.ts`, `AuthService.ts`, middleware `Authenticate.ts`, rota `POST /auth/login` e limite de cinco requisições por IP em 15 minutos.
   - **Atende:** `RF-01`, `RNF-06`
-  - **Teste:** `tests/Auth.test.ts` (login gera JWT; credenciais inválidas retornam 401 `INVALID_CREDENTIALS`).
+  - **Teste:** `tests/Auth.test.ts` (login gera JWT; credenciais inválidas retornam 401; middleware valida Bearer; limite retorna 429 após cinco requisições).
   - **Depende de:** Task 3, Task 5.
+- [x] **Task 6.1: Inicialização da Aplicação Express**
+
+  - **Entrega:** `src/app.ts` com parser JSON, rota `/auth` e `ErrorHandler`; `src/server.ts` conecta ao MySQL e inicia o servidor HTTP; cliente Prisma compartilhado e comando `npm run dev`.
+  - **Atende:** `RF-01`, `RNF-01` e arquitetura definida em `arquitetura/arquitetura.md`.
+  - **Teste:** `tests/App.test.ts` (valida login por meio da aplicação montada e tratamento global de erros).
+  - **Depende de:** Task 6.
 - [ ] **Task 7: CRUD 1 — Clientes (5 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de clientes (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
   - **Atende:** `RF-02`, `RN-01`, `RN-02`, `RN-03`
   - **Teste:** `tests/Clientes.test.ts` (testa as 5 operações do CRUD e validação de CPF único).
-  - **Depende de:** Task 6.
+  - **Depende de:** Task 6, Task 6.1.
 - [ ] **Task 8: CRUD 2 — Estações de Trabalho (6 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de máquinas (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`, `PATCH /:id/status`).
   - **Atende:** `RF-03`, `RN-04`, `RN-05`, `RN-06`
   - **Teste:** `tests/Estacoes.test.ts` (testa as operações de CRUD e transição de status).
-  - **Depende de:** Task 6.
+  - **Depende de:** Task 6, Task 6.1.
 - [ ] **Task 9: CRUD 3 — Tarifas por Categoria (5 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de regras de preço (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
   - **Atende:** `RF-08`, `RN-13`, `RN-14`
   - **Teste:** `tests/Tarifas.test.ts` (testa as operações de CRUD e precisão de tarifas em centavos).
-  - **Depende de:** Task 6.
+  - **Depende de:** Task 6, Task 6.1.
 - [ ] **Task 10: Créditos e Transações Financeiras**
 
   - **Entrega:** `CreditosController.ts`, `CreditosService.ts` e rotas `POST /creditos/recarga` e `GET /creditos/extrato/:clienteId`.
