@@ -2,8 +2,8 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 1.4
-- **Data:** 10/11/2026
+- **Versão:** 1.6
+- **Data:** 13/11/2026
 
 ## Índice
 
@@ -26,6 +26,8 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.9 | Aprovação do catálogo consolidado das 24 rotas da API | `api` | aprovado |
 | 7.10 | Uso de checkboxes para acompanhar as tasks de implementação | `processoIa` | aprovado |
 | 7.11 | Adoção do runner nativo `node:test` | `codigo` | aprovado |
+| 7.12 | MySQL local dedicado com Docker Compose e bases separadas | `dados` | aprovado |
+| 7.13 | Conclusão das tasks de Docker e Prisma | `processoIa` | aprovado |
 
 ---
 
@@ -44,3 +46,5 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.9 | Aprovar o catálogo consolidado com as 24 rotas da API, incluindo os três CRUDs completos, os endpoints de domínio e a documentação Swagger. | Refletir no catálogo as rotas já definidas nos contratos aprovados e manter sua contagem alinhada à decisão 7.6. |
 | 7.10 | Usar checkboxes pendentes nas tasks de implementação para acompanhar seu progresso. | Tornar visível o estado de cada task, preservando a regra de que só o usuário autoriza marcá-la como concluída. |
 | 7.11 | Adotar o runner nativo `node:test` e usar `tsx` somente para carregar testes TypeScript na versão mínima suportada do Node.js. | Eliminar a dependência de framework externo e manter os testes automatizados na stack aprovada. |
+| 7.12 | Provisionar o MySQL de desenvolvimento e teste em um container dedicado do Docker Compose, com bases separadas e volume persistente. | Facilitar a clonagem e a reprodução do ambiente sem exigir uma instalação local de MySQL e impedir que os testes usem a base de desenvolvimento. |
+| 7.13 | Marcar as Tasks 2 e 3 como concluídas após validar o Compose, aplicar as migrations nas bases separadas e passar a suíte completa. | Registrar a entrega da infraestrutura e do modelo Prisma para liberar o início da Task 4. |

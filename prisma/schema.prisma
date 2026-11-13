@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Usuario {
+  id                 String             @id @default(uuid()) @db.VarChar(36)
+  nome               String             @db.VarChar(100)
+  login              String             @unique @db.VarChar(50)
+  senhaHash          String             @db.VarChar(255)
+  perfil             String             @db.VarChar(20)
+  ativo              Boolean            @default(true)
+  criadoEm           DateTime           @default(now()) @db.Timestamp(0)
+  atualizadoEm       DateTime           @updatedAt @db.Timestamp(0)
+  sessoesIniciadas   Sessao[]           @relation("OperadorInicio")
+  sessoesFinalizadas Sessao[]           @relation("OperadorFim")
+  transacoesCredito  TransacaoCredito[] @relation("OperadorTransacao")
+
+  @@map("usuarios")
+}
+
+model Cliente {
+  id                String             @id @default(uuid()) @db.VarChar(36)
+  nome              String             @db.VarChar(120)
+  documento         String             @unique @db.VarChar(20)
+  telefone          String?            @db.VarChar(20)
+  email             String?            @db.VarChar(120)
+  saldoCentavos     Int                @default(0)
+  ativo             Boolean            @default(true)
+  criadoEm          DateTime           @default(now()) @db.Timestamp(0)
+  atualizadoEm      DateTime           @updatedAt @db.Timestamp(0)
+  sessoes           Sessao[]
+  transacoesCredito TransacaoCredito[]
+
+  @@map("clientes")
+}
+
+model Estacao {
+  id           String   @id @default(uuid()) @db.VarChar(36)
+  numero       Int      @unique
+  nome         String   @db.VarChar(50)
+  categoria    String   @db.VarChar(20)
+  status       String   @db.VarChar(20)
+  ipHost       String   @unique @db.VarChar(45)
+  ativo        Boolean  @default(true)
+  criadoEm     DateTime @default(now()) @db.Timestamp(0)
+  atualizadoEm DateTime @updatedAt @db.Timestamp(0)
+  sessoes      Sessao[]
+
+  @@map("estacoes")
+}
+
+model Tarifa {
+  id                     String   @id @default(uuid()) @db.VarChar(36)
+  categoria              String   @db.VarChar(20)
+  valorPorMinutoCentavos Int
+  ativo                  Boolean  @default(true)
+  criadoEm               DateTime @default(now()) @db.Timestamp(0)
+  atualizadoEm           DateTime @updatedAt @db.Timestamp(0)
+
+  @@map("tarifas")
+}
+
+model Sessao {
+  id                 String            @id @default(uuid()) @db.VarChar(36)
+  clienteId          String            @db.VarChar(36)
+  estacaoId          String            @db.VarChar(36)
+  operadorInicioId   String            @db.VarChar(36)
+  operadorFimId      String?           @db.VarChar(36)
+  modalidade         String            @db.VarChar(20)
+  status             String            @db.VarChar(20)
+  iniciadoEm         DateTime          @default(now()) @db.Timestamp(0)
+  finalizadoEm       DateTime?         @db.Timestamp(0)
+  minutosContratados Int?
+  minutosUtilizados  Int?
+  valorFinalCentavos Int?
+  pagoComSaldo       Boolean           @default(false)
+  cliente            Cliente           @relation(fields: [clienteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  estacao            Estacao           @relation(fields: [estacaoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  operadorInicio     Usuario           @relation("OperadorInicio", fields: [operadorInicioId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  operadorFim        Usuario?          @relation("OperadorFim", fields: [operadorFimId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  transacaoCredito   TransacaoCredito?
+
+  @@map("sessoes")
+}
+
+model TransacaoCredito {
+  id                String   @id @default(uuid()) @db.VarChar(36)
+  clienteId         String   @db.VarChar(36)
+  operadorId        String   @db.VarChar(36)
+  sessaoId          String?  @unique @db.VarChar(36)
+  tipo              String   @db.VarChar(20)
+  valorCentavos     Int
+  saldoAposCentavos Int
+  criadoEm          DateTime @default(now()) @db.Timestamp(0)
+  cliente           Cliente  @relation(fields: [clienteId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  operador          Usuario  @relation("OperadorTransacao", fields: [operadorId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  sessao            Sessao?  @relation(fields: [sessaoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("transacoes_credito")
+}

@@ -4,18 +4,23 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.19.0"
   },
   "scripts": {
     "test": "node --import=tsx --test \"tests/**/*.test.ts\"",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:test": "prisma migrate deploy --config prisma.test.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.1",
+    "@prisma/client": "^7.10.1",
     "dotenv": "^18.0.10",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "prisma": "^7.10.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
