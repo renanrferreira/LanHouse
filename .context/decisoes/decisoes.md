@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 1.7
+- **Versão:** 1.9
 - **Data:** 13/11/2026
 
 ## Índice
@@ -29,6 +29,8 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.12 | MySQL local dedicado com Docker Compose e bases separadas | `dados` | aprovado |
 | 7.13 | Conclusão das tasks de Docker e Prisma | `processoIa` | aprovado |
 | 7.14 | Conclusão da seed inicial fictícia | `processoIa` | aprovado |
+| 7.15 | Escolha do Express para a camada HTTP | `codigo` | aprovado |
+| 7.16 | Conclusão da task de tratamento de erros | `processoIa` | aprovado |
 
 ---
 
@@ -50,3 +52,5 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.12 | Provisionar o MySQL de desenvolvimento e teste em um container dedicado do Docker Compose, com bases separadas e volume persistente. | Facilitar a clonagem e a reprodução do ambiente sem exigir uma instalação local de MySQL e impedir que os testes usem a base de desenvolvimento. |
 | 7.13 | Marcar as Tasks 2 e 3 como concluídas após validar o Compose, aplicar as migrations nas bases separadas e passar a suíte completa. | Registrar a entrega da infraestrutura e do modelo Prisma para liberar o início da Task 4. |
 | 7.14 | Marcar a Task 4 como concluída após aplicar a seed fictícia em `lanhouse_dev` e `lanhouse_test`, validar a reexecução e passar a suíte completa. | Registrar a entrega dos dados iniciais de desenvolvimento e teste, liberando a próxima task de implementação. |
+| 7.15 | Selecionar Express 5 como framework HTTP da aplicação. | Usar a assinatura convencional de middleware para tratar erros e padronizar a integração dos middlewares HTTP seguintes. |
+| 7.16 | Marcar a Task 5 como concluída após validar o catálogo de erros, o middleware Express e a suíte completa. | Registrar a entrega do contrato de erros centralizado e liberar a implementação das próximas funcionalidades da API. |

@@ -2,8 +2,8 @@
 
 Definição de linguagens, frameworks, banco de dados, bibliotecas e variáveis de ambiente.
 
-- **Versão:** 1.0
-- **Data:** 10/11/2026
+- **Versão:** 1.1
+- **Data:** 13/11/2026
 - **Status:** aprovado
 
 ## 1. Stack Aprovada
@@ -14,7 +14,7 @@ A stack tecnológica do projeto foi definida e aprovada com base nos requisitos 
 |---|---|---|---|
 | **Ambiente de Execução** | Node.js | >= 20.x LTS | Runtime do servidor |
 | **Linguagem** | TypeScript | >= 5.x | Tipagem estrita e segurança em tempo de compilação |
-| **Framework HTTP** | Fastify (ou Express) | Atual | Roteamento, middlewares e servidor HTTP RESTful |
+| **Framework HTTP** | Express | 5.x | Roteamento, middlewares e servidor HTTP RESTful |
 | **Banco de Dados** | MySQL | 8.0+ | Banco relacional com suporte a transações ACID |
 | **ORM / Migrations** | Prisma ORM | 5.x+ | Mapeamento objeto-relacional, geração de schema e migrations |
 | **Validação de Schemas**| Zod | 3.x+ | Validação estrita de payloads de entrada |

@@ -2,7 +2,7 @@
 
 Lista das tasks para construir o projeto, na ordem de execução, com o teste de cada uma.
 
-- **Versão:** 1.3
+- **Versão:** 1.4
 - **Data:** 13/11/2026
 - **Marcação:** `[ ]` pendente e `[x]` concluída. Só o usuário permite marcar.
 
@@ -64,7 +64,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `migrations/migrations.md`
   - **Teste:** `tests/seed.test.ts` (confere inserção de dados iniciais no banco de teste).
   - **Depende de:** Task 3.
-- [ ] **Task 5: Tratamento de Erros e Catálogo Unificado**
+- [x] **Task 5: Tratamento de Erros e Catálogo Unificado**
 
   - **Entrega:** `errors/AppError.ts`, `constants/ErrorCodes.ts` e middleware central de erro.
   - **Atende:** `RNF-01`, catálogo de erros em `contratos.md`
