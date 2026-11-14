@@ -5,6 +5,7 @@ import { ErrorCodes } from './constants/ErrorCodes.js';
 import { AppError } from './errors/AppError.js';
 import { ErrorHandler } from './middlewares/ErrorHandler.js';
 import { createAuthRouter } from './routes/AuthRoutes.js';
+import { createClientesRouter } from './routes/ClientesRoutes.js';
 
 export const createApp = (prisma: PrismaClient): Express => {
   const app = express();
@@ -12,6 +13,7 @@ export const createApp = (prisma: PrismaClient): Express => {
   app.use(helmet({ xFrameOptions: { action: 'deny' } }));
   app.use(express.json());
   app.use('/auth', createAuthRouter(prisma));
+  app.use('/clientes', createClientesRouter(prisma));
   app.use((_request, _response, next) => {
     next(
       new AppError(ErrorCodes.ROUTE_NOT_FOUND, 'Rota não encontrada.'),
