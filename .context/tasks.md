@@ -94,7 +94,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-03`, `RN-04`, `RN-05`, `RN-06`
   - **Teste:** `tests/Estacoes.test.ts` (testa as operações de CRUD e transição de status).
   - **Depende de:** Task 6, Task 6.1.
-- [ ] **Task 9: CRUD 3 — Tarifas por Categoria (5 operações)**
+- [X] **Task 9: CRUD 3 — Tarifas por Categoria (5 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de regras de preço (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
   - **Atende:** `RF-08`, `RN-13`, `RN-14`

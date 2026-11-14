@@ -2,7 +2,7 @@
 
 Contratos de requisição e resposta, catálogo de erros padronizado, paginação e contratos detalhados dos 3 CRUDs e endpoints de domínio.
 
-- **Versão:** 1.2
+- **Versão:** 1.3
 - **Data:** 14/11/2026
 - **Status:** aprovado
 
@@ -123,16 +123,18 @@ Categorias padronizadas: `COMUM`, `GAMER`, `HIGH_END`. Cada estação possui IP 
 ### 4.3 CRUD 3 — Tarifas (`/tarifas`)
 Categorias padronizadas: `COMUM`, `GAMER`, `HIGH_END`.
 
+**Regras de vigência:** cada categoria pode ter no máximo uma tarifa ativa. Um novo POST cria a tarifa enviada e, se já existir uma tarifa ativa para a categoria, desativa a anterior na mesma transação. A lista GET retorna somente tarifas ativas. A consulta GET por ID retorna tarifas ativas e inativas. O PUT altera somente uma tarifa ativa; o valor deve ser um inteiro positivo em centavos. Uma tarifa inativa ou inexistente em PUT retorna `404 RATE_NOT_FOUND`. DELETE desativa logicamente a tarifa e pode deixar a categoria sem tarifa ativa até um novo POST.
+
 - **Create (`POST /tarifas`):**
   - **Body:** `{ "categoria": "HIGH_END", "valorPorMinutoCentavos": 40 }`
   - **Saída (201 Created):** `{ "sucesso": true, "dados": { "id": "tar_03", "categoria": "HIGH_END", "valorPorMinutoCentavos": 40, "ativo": true } }`
 - **Read Geral (`GET /tarifas`):**
   - **Saída (200 OK):** `{ "sucesso": true, "dados": [ { "id": "tar_01", "categoria": "COMUM", "valorPorMinutoCentavos": 10, ... } ] }`
 - **Read Individual (`GET /tarifas/:id`):**
-  - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "tar_01", "categoria": "COMUM", "valorPorMinutoCentavos": 10 } }`
+  - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "tar_01", "categoria": "COMUM", "valorPorMinutoCentavos": 10, "ativo": true } }`
 - **Update (`PUT /tarifas/:id`):**
   - **Body:** `{ "valorPorMinutoCentavos": 15 }`
-  - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "tar_01", "categoria": "COMUM", "valorPorMinutoCentavos": 15 } }`
+  - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "tar_01", "categoria": "COMUM", "valorPorMinutoCentavos": 15, "ativo": true } }`
 - **Delete (`DELETE /tarifas/:id`):**
   - **Saída (200 OK):** `{ "sucesso": true, "dados": { "mensagem": "Tarifa desativada com sucesso.", "ativo": false } }`
 

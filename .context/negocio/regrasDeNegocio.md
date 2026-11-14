@@ -2,8 +2,8 @@
 
 Regras fundamentais que regem a lógica operacional e financeira da Lan House.
 
-- **Versão:** 1.0
-- **Data:** 10/11/2026
+- **Versão:** 1.1
+- **Data:** 14/11/2026
 - **Status:** aprovado
 
 ## 1. Cadastro e Clientes
@@ -38,5 +38,5 @@ Regras fundamentais que regem a lógica operacional e financeira da Lan House.
 | # | Regra | Status |
 |---|---|---|
 | `RN-13` | Todos os valores monetários de tarifas, cobranças e recargas são manipulados e registrados em centavos inteiros (`Centavos`), proibindo o uso de pontos flutuantes / decimais. | aprovado |
-| `RN-14` | A tarifa define o valor por minuto em centavos inteiros para cada uma das 3 categorias padronizadas de computadores da API: `COMUM`, `GAMER` e `HIGH_END`. Cada categoria possui sua própria regra tarifária ativa. | aprovado |
+| `RN-14` | A tarifa define o valor por minuto em centavos inteiros para cada uma das 3 categorias padronizadas de computadores da API: `COMUM`, `GAMER` e `HIGH_END`. Cada categoria pode ter no máximo uma regra tarifária ativa e pode ficar sem tarifa ativa após desativação lógica até novo cadastro. | aprovado |
 | `RN-15` | Toda transação financeira de recarga de créditos (`transacaoCredito`) deve gerar um registro imutável contendo o valor em centavos, tipo de operação (`RECARGA`, `DEBITO_SESSAO`, `ESTORNO`), atendente responsável e data em UTC. | aprovado |
