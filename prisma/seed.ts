@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { PrismaClient } from '@prisma/client';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { createPrismaClient } from '../src/database/PrismaClient.js';
 
 const ATTENDANT_ID = '00000000-0000-4000-8000-000000000001';
 const ATTENDANT_LOGIN = 'atendente';
@@ -103,7 +103,7 @@ export async function seedLanhouse(prisma: PrismaClient): Promise<void> {
   }
 }
 
-function createPrismaClient(databaseUrl: string): PrismaClient {
+function createSeedPrismaClient(databaseUrl: string): PrismaClient {
   const parsedDatabaseUrl = new URL(databaseUrl);
   const databaseName = decodeURIComponent(parsedDatabaseUrl.pathname.slice(1));
 
@@ -111,16 +111,7 @@ function createPrismaClient(databaseUrl: string): PrismaClient {
     throw new Error('O seed só pode ser executado em lanhouse_dev ou lanhouse_test.');
   }
 
-  return new PrismaClient({
-    adapter: new PrismaMariaDb({
-      host: parsedDatabaseUrl.hostname,
-      port: Number(parsedDatabaseUrl.port || 3306),
-      user: decodeURIComponent(parsedDatabaseUrl.username),
-      password: decodeURIComponent(parsedDatabaseUrl.password),
-      database: databaseName,
-      connectionLimit: 1,
-    }),
-  });
+  return createPrismaClient(databaseUrl);
 }
 
 async function runSeed(): Promise<void> {
@@ -130,7 +121,7 @@ async function runSeed(): Promise<void> {
     throw new Error('DATABASE_URL não está configurada.');
   }
 
-  const prisma = createPrismaClient(databaseUrl);
+  const prisma = createSeedPrismaClient(databaseUrl);
 
   try {
     await prisma.$connect();

@@ -2,10 +2,9 @@ import 'dotenv/config';
 import assert from 'node:assert/strict';
 import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { PrismaClient } from '@prisma/client';
 import { after, before, describe, it } from 'node:test';
 import { seedLanhouse } from '../prisma/seed.ts';
+import { createPrismaClient } from '../src/database/PrismaClient.ts';
 
 process.env.NODE_ENV ??= 'test';
 process.env.JWT_SECRET ??= 'chave_falsa_apenas_para_testes_1234567890';
@@ -18,16 +17,7 @@ const databaseTestUrl =
   'mysql://lanhouse_app:senha_dev_local@127.0.0.1:3307/lanhouse_test';
 const parsedDatabaseUrl = new URL(databaseTestUrl);
 const databaseName = decodeURIComponent(parsedDatabaseUrl.pathname.slice(1));
-const prisma = new PrismaClient({
-  adapter: new PrismaMariaDb({
-    host: parsedDatabaseUrl.hostname,
-    port: Number(parsedDatabaseUrl.port || 3306),
-    user: decodeURIComponent(parsedDatabaseUrl.username),
-    password: decodeURIComponent(parsedDatabaseUrl.password),
-    database: databaseName,
-    connectionLimit: 1,
-  }),
-});
+const prisma = createPrismaClient(databaseTestUrl);
 
 const app = createApp(prisma);
 let server: Server | undefined;

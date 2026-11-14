@@ -49,7 +49,7 @@ describe('Tratamento e catálogo de erros', () => {
     });
   });
 
-  it('mapeia os 18 códigos para os status HTTP do contrato', () => {
+  it('mapeia os 19 códigos para os status HTTP do contrato', () => {
     assert.deepEqual(
       Object.entries(ErrorCodes).map(([key, definition]) => [
         key,
@@ -65,6 +65,7 @@ describe('Tratamento e catálogo de erros', () => {
         ['STATION_NOT_FOUND', 404],
         ['RATE_NOT_FOUND', 404],
         ['SESSION_NOT_FOUND', 404],
+        ['ROUTE_NOT_FOUND', 404],
         ['DOCUMENT_ALREADY_EXISTS', 409],
         ['STATION_NUMBER_ALREADY_EXISTS', 409],
         ['STATION_IP_ALREADY_EXISTS', 409],

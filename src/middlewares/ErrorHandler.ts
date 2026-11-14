@@ -2,6 +2,12 @@ import type { ErrorRequestHandler } from 'express';
 import { ErrorCodes } from '../constants/ErrorCodes.js';
 import { AppError } from '../errors/AppError.js';
 
+const isMalformedJsonError = (error: unknown): boolean =>
+  typeof error === 'object' &&
+  error !== null &&
+  'type' in error &&
+  error.type === 'entity.parse.failed';
+
 export const ErrorHandler: ErrorRequestHandler = (
   error,
   _request,
@@ -20,6 +26,18 @@ export const ErrorHandler: ErrorRequestHandler = (
         codigo: error.codigo,
         mensagem: error.message,
         detalhes: error.detalhes,
+      },
+    });
+    return;
+  }
+
+  if (isMalformedJsonError(error)) {
+    response.status(ErrorCodes.INVALID_INPUT.statusCode).json({
+      sucesso: false,
+      erro: {
+        codigo: ErrorCodes.INVALID_INPUT.codigo,
+        mensagem: 'Corpo JSON inválido.',
+        detalhes: [],
       },
     });
     return;

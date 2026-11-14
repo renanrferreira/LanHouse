@@ -2,8 +2,8 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.3
-- **Data:** 13/11/2026
+- **Versão:** 2.4
+- **Data:** 14/11/2026
 
 ## Índice
 
@@ -35,6 +35,10 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.18 | Conclusão da task de autenticação e proteção do login | `processoIa` | aprovado |
 | 7.19 | Inserção da task de inicialização Express antes dos CRUDs | `processoIa` | aprovado |
 | 7.20 | Conclusão da task de inicialização da aplicação | `processoIa` | aprovado |
+| 7.21 | Fechamento das regras do contrato CRUD de clientes | `api` | aprovado |
+| 7.22 | Respostas JSON para erros de rota e JSON malformado | `api` | aprovado |
+| 7.23 | Uso do Helmet para cabeçalhos de segurança HTTP | `seguranca` | aprovado |
+| 7.24 | Recuperação de chave RSA somente em conexões MySQL locais | `dados` | aprovado |
 
 ---
 
@@ -62,3 +66,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.18 | Marcar a Task 6 como concluída após validar login JWT, middleware Bearer, limite de tentativas e a suíte completa. | Registrar a entrega de autenticação de atendentes e liberar as tasks dependentes de clientes, estações e tarifas. |
 | 7.19 | Inserir a Task 6.1 para compor a aplicação Express, iniciar o servidor e montar a autenticação antes dos CRUDs. | Garantir que o login esteja acessível pela aplicação HTTP e que as tasks de CRUD partam de um ponto comum de montagem de rotas. |
 | 7.20 | Marcar a Task 6.1 como concluída após validar a aplicação Express, a montagem da rota de autenticação e a suíte completa. | Registrar a inicialização da API e liberar a Task 7, que passa a depender da base comum de montagem de rotas. |
+| 7.21 | Definir o contrato de clientes com CPF validado e normalizado, atualização completa e listagem paginada de clientes ativos. | Remover ambiguidades de entrada, atualização, busca e visibilidade antes da implementação do CRUD de clientes. |
+| 7.22 | Retornar `400 INVALID_INPUT` para JSON malformado e `404 ROUTE_NOT_FOUND` para rotas não cadastradas, sempre no formato JSON padronizado. | Manter as respostas de erro da API previsíveis para os clientes HTTP. |
+| 7.23 | Adotar Helmet para aplicar os cabeçalhos de segurança HTTP descritos na especificação. | Usar uma biblioteca mantida para cumprir a política de cabeçalhos de segurança da API. |
+| 7.24 | Permitir a recuperação da chave pública RSA pelo driver MySQL somente para hosts locais. | Fazer a autenticação `caching_sha2_password` funcionar no MySQL local de desenvolvimento e teste sem habilitar essa opção em conexões remotas. |

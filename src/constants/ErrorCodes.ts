@@ -8,6 +8,7 @@ export const ErrorCodes = {
   STATION_NOT_FOUND: { codigo: 'STATION_NOT_FOUND', statusCode: 404 },
   RATE_NOT_FOUND: { codigo: 'RATE_NOT_FOUND', statusCode: 404 },
   SESSION_NOT_FOUND: { codigo: 'SESSION_NOT_FOUND', statusCode: 404 },
+  ROUTE_NOT_FOUND: { codigo: 'ROUTE_NOT_FOUND', statusCode: 404 },
   DOCUMENT_ALREADY_EXISTS: { codigo: 'DOCUMENT_ALREADY_EXISTS', statusCode: 409 },
   STATION_NUMBER_ALREADY_EXISTS: {
     codigo: 'STATION_NUMBER_ALREADY_EXISTS',

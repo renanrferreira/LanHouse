@@ -1,9 +1,8 @@
 import 'dotenv/config';
 import assert from 'node:assert/strict';
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { PrismaClient } from '@prisma/client';
 import { describe, it } from 'node:test';
 import { seedLanhouse } from '../prisma/seed.js';
+import { createPrismaClient } from '../src/database/PrismaClient.js';
 
 const databaseTestUrl =
   process.env.DATABASE_TEST_URL ??
@@ -12,15 +11,7 @@ const parsedDatabaseUrl = new URL(databaseTestUrl);
 const expectedDatabaseName = decodeURIComponent(
   parsedDatabaseUrl.pathname.slice(1),
 );
-const adapter = new PrismaMariaDb({
-  host: parsedDatabaseUrl.hostname,
-  port: Number(parsedDatabaseUrl.port || 3306),
-  user: decodeURIComponent(parsedDatabaseUrl.username),
-  password: decodeURIComponent(parsedDatabaseUrl.password),
-  database: expectedDatabaseName,
-  connectionLimit: 1,
-});
-const prisma = new PrismaClient({ adapter });
+const prisma = createPrismaClient(databaseTestUrl);
 
 const expectedStations = [
   {

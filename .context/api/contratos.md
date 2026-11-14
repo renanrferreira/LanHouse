@@ -2,8 +2,8 @@
 
 Contratos de requisição e resposta, catálogo de erros padronizado, paginação e contratos detalhados dos 3 CRUDs e endpoints de domínio.
 
-- **Versão:** 1.1
-- **Data:** 13/11/2026
+- **Versão:** 1.2
+- **Data:** 14/11/2026
 - **Status:** aprovado
 
 ## 1. Formato Padrão de Resposta de Sucesso
@@ -54,7 +54,7 @@ Erros de negócio e de validação seguem rigorosamente a seguinte estrutura em 
 
 | Código HTTP | Código do Erro | Significado |
 |---|---|---|
-| `400` | `INVALID_INPUT` | Dados de entrada ausentes, inválidos ou mal formatados. |
+| `400` | `INVALID_INPUT` | Dados de entrada ausentes, inválidos ou mal formatados, incluindo JSON inválido. |
 | `400` | `INVALID_CREDIT_AMOUNT` | Valor de recarga em centavos inválido ou menor/igual a zero. |
 | `401` | `INVALID_CREDENTIALS` | Login ou senha incorretos. |
 | `401` | `UNAUTHORIZED` | Token ausente, inválido ou expirado. |
@@ -63,6 +63,7 @@ Erros de negócio e de validação seguem rigorosamente a seguinte estrutura em 
 | `404` | `STATION_NOT_FOUND` | Estação de trabalho não localizada. |
 | `404` | `RATE_NOT_FOUND` | Tarifa não localizada. |
 | `404` | `SESSION_NOT_FOUND` | Sessão de uso não localizada. |
+| `404` | `ROUTE_NOT_FOUND` | Rota HTTP não localizada. |
 | `409` | `DOCUMENT_ALREADY_EXISTS` | Documento (CPF) já cadastrado para outro cliente. |
 | `409` | `STATION_NUMBER_ALREADY_EXISTS` | Número de estação já cadastrado no salão. |
 | `409` | `STATION_IP_ALREADY_EXISTS` | Endereço IP fixo já associado a outra estação. |
@@ -79,16 +80,23 @@ Erros de negócio e de validação seguem rigorosamente a seguinte estrutura em 
 
 ### 4.1 CRUD 1 — Clientes (`/clientes`)
 
+O campo `documento` aceita CPF com ou sem máscara (`.` e `-`). A API remove a máscara, valida os 11 dígitos e os dígitos verificadores do CPF e armazena somente os números. A unicidade é verificada sobre o CPF normalizado. CPF inválido retorna `400 INVALID_INPUT`; CPF já cadastrado, inclusive em cliente inativo, retorna `409 DOCUMENT_ALREADY_EXISTS`.
+
+- **Campos opcionais:** `telefone` e `email` podem ser omitidos no cadastro. No `PUT`, ambos devem estar presentes e podem receber `null`.
+- **Listagem (`GET /clientes`):** retorna somente clientes ativos. `pagina` começa em 1 e tem padrão 1. `itensPorPagina` varia de 1 a 100 e tem padrão 20. `busca` procura trecho do nome ou dos dígitos do CPF; pontos e hífen são removidos da busca por documento.
+- **Consulta individual (`GET /clientes/:id`):** retorna somente clientes ativos; cliente inexistente ou inativo retorna `404 CLIENT_NOT_FOUND`.
+- **Atualização (`PUT /clientes/:id`):** substitui os campos cadastrais. O corpo completo exige `nome`, `documento`, `telefone` e `email`; `telefone` e `email` aceitam texto ou `null`. O saldo de créditos não pode ser alterado por esta rota.
+
 - **Create (`POST /clientes`):**
-  - **Body:** `{ "nome": "Carlos Silva", "documento": "12345678901", "telefone": "11999998888", "email": "carlos@email.com" }`
-  - **Saída (201 Created):** `{ "sucesso": true, "dados": { "id": "cli_01", "nome": "Carlos Silva", "documento": "12345678901", "saldoCentavos": 0, "ativo": true, "criadoEm": "..." } }`
+  - **Body:** `{ "nome": "Carlos Silva", "documento": "529.982.247-25", "telefone": "11999998888", "email": "carlos@email.com" }`
+  - **Saída (201 Created):** `{ "sucesso": true, "dados": { "id": "cli_01", "nome": "Carlos Silva", "documento": "52998224725", "saldoCentavos": 0, "ativo": true, "criadoEm": "..." } }`
 - **Read Geral (`GET /clientes`):**
   - **Query:** `?pagina=1&itensPorPagina=20&busca=Carlos`
   - **Saída (200 OK):** `{ "sucesso": true, "dados": [ ... ], "paginacao": { ... } }`
 - **Read Individual (`GET /clientes/:id`):**
   - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "cli_01", "nome": "Carlos Silva", ... } }`
 - **Update (`PUT /clientes/:id`):**
-  - **Body:** `{ "nome": "Carlos Silva Editado", "telefone": "11988887777", "email": "carlos.novo@email.com" }`
+  - **Body:** `{ "nome": "Carlos Silva Editado", "documento": "529.982.247-25", "telefone": "11988887777", "email": "carlos.novo@email.com" }`
   - **Saída (200 OK):** `{ "sucesso": true, "dados": { "id": "cli_01", "nome": "Carlos Silva Editado", ... } }`
 - **Delete (`DELETE /clientes/:id`):**
   - **Saída (200 OK):** `{ "sucesso": true, "dados": { "mensagem": "Cliente desativado com sucesso.", "ativo": false } }`
