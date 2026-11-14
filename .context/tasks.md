@@ -46,43 +46,43 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RNF-01`, `RNF-05`
   - **Teste:** `tests/setup.test.ts` (verifica carregamento de variáveis de ambiente e padronização UTC).
   - **Depende de:** Nenhuma.
-- [x] **Task 2: MySQL Isolado em Docker Compose**
+- [X] **Task 2: MySQL Isolado em Docker Compose**
 
   - **Entrega:** `compose.yaml` com serviço MySQL 8, volume persistente e criação das bases `lanhouse_dev` e `lanhouse_test`; `.env.example` com as conexões locais.
   - **Atende:** `RNF-05` e a política de isolamento de bancos em `migrations/migrations.md`.
   - **Teste:** Validar a configuração do Compose, a saúde do container e a existência das duas bases.
   - **Depende de:** Task 1.
-- [x] **Task 3: Modelagem Prisma e Migrations MySQL**
+- [X] **Task 3: Modelagem Prisma e Migrations MySQL**
 
   - **Entrega:** `prisma/schema.prisma` mapeando `Usuario`, `Cliente`, `Estacao`, `Tarifa`, `Sessao` e `TransacaoCredito`, gerando a migration inicial para MySQL.
   - **Atende:** `RN-01`, `RN-04`, `RN-13`, `RNF-04`
   - **Teste:** `tests/database.test.ts` (valida conexão com banco de testes e integridade das tabelas).
   - **Depende de:** Task 2.
-- [x] **Task 4: Seed com Dados Iniciais Fictícios**
+- [X] **Task 4: Seed com Dados Iniciais Fictícios**
 
   - **Entrega:** `prisma/seed.ts` populando atendente padrão, computadores e tarifas por categoria.
   - **Atende:** `migrations/migrations.md`
   - **Teste:** `tests/seed.test.ts` (confere inserção de dados iniciais no banco de teste).
   - **Depende de:** Task 3.
-- [x] **Task 5: Tratamento de Erros e Catálogo Unificado**
+- [X] **Task 5: Tratamento de Erros e Catálogo Unificado**
 
   - **Entrega:** `errors/AppError.ts`, `constants/ErrorCodes.ts` e middleware central de erro.
   - **Atende:** `RNF-01`, catálogo de erros em `contratos.md`
   - **Teste:** `tests/ErrorHandler.test.ts` (valida respostas de erro `{ sucesso: false, erro: { codigo, mensagem, detalhes } }`).
   - **Depende de:** Task 1.
-- [x] **Task 6: Autenticação de Atendentes e Middleware JWT**
+- [X] **Task 6: Autenticação de Atendentes e Middleware JWT**
 
   - **Entrega:** `AuthController.ts`, `AuthService.ts`, middleware `Authenticate.ts`, rota `POST /auth/login` e limite de cinco requisições por IP em 15 minutos.
   - **Atende:** `RF-01`, `RNF-06`
   - **Teste:** `tests/Auth.test.ts` (login gera JWT; credenciais inválidas retornam 401; middleware valida Bearer; limite retorna 429 após cinco requisições).
   - **Depende de:** Task 3, Task 5.
-- [x] **Task 6.1: Inicialização da Aplicação Express**
+- [X] **Task 6.1: Inicialização da Aplicação Express**
 
   - **Entrega:** `src/app.ts` com parser JSON, rota `/auth` e `ErrorHandler`; `src/server.ts` conecta ao MySQL e inicia o servidor HTTP; cliente Prisma compartilhado e comando `npm run dev`.
   - **Atende:** `RF-01`, `RNF-01` e arquitetura definida em `arquitetura/arquitetura.md`.
   - **Teste:** `tests/App.test.ts` (valida login por meio da aplicação montada e tratamento global de erros).
   - **Depende de:** Task 6.
-- [ ] **Task 7: CRUD 1 — Clientes (5 operações)**
+- [X] **Task 7: CRUD 1 — Clientes (5 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de clientes (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`).
   - **Atende:** `RF-02`, `RN-01`, `RN-02`, `RN-03`
