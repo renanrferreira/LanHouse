@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.4
+- **Versão:** 2.5
 - **Data:** 14/11/2026
 
 ## Índice
@@ -39,6 +39,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.22 | Respostas JSON para erros de rota e JSON malformado | `api` | aprovado |
 | 7.23 | Uso do Helmet para cabeçalhos de segurança HTTP | `seguranca` | aprovado |
 | 7.24 | Recuperação de chave RSA somente em conexões MySQL locais | `dados` | aprovado |
+| 7.25 | Conclusão da Task 8 — CRUD de estações | `processoIa` | aprovado |
 
 ---
 
@@ -70,3 +71,4 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.22 | Retornar `400 INVALID_INPUT` para JSON malformado e `404 ROUTE_NOT_FOUND` para rotas não cadastradas, sempre no formato JSON padronizado. | Manter as respostas de erro da API previsíveis para os clientes HTTP. |
 | 7.23 | Adotar Helmet para aplicar os cabeçalhos de segurança HTTP descritos na especificação. | Usar uma biblioteca mantida para cumprir a política de cabeçalhos de segurança da API. |
 | 7.24 | Permitir a recuperação da chave pública RSA pelo driver MySQL somente para hosts locais. | Fazer a autenticação `caching_sha2_password` funcionar no MySQL local de desenvolvimento e teste sem habilitar essa opção em conexões remotas. |
+| 7.25 | Marcar a Task 8 como concluída após validar as seis operações de estações, a suíte completa e o typecheck. | Registrar a entrega do CRUD de estações e liberar a implementação das tasks dependentes. |

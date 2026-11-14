@@ -88,7 +88,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-02`, `RN-01`, `RN-02`, `RN-03`
   - **Teste:** `tests/Clientes.test.ts` (testa as 5 operações do CRUD e validação de CPF único).
   - **Depende de:** Task 6, Task 6.1.
-- [ ] **Task 8: CRUD 2 — Estações de Trabalho (6 operações)**
+- [X] **Task 8: CRUD 2 — Estações de Trabalho (6 operações)**
 
   - **Entrega:** Rotas, controller, service e repositório de máquinas (`POST`, `GET`, `GET /:id`, `PUT /:id`, `DELETE /:id`, `PATCH /:id/status`).
   - **Atende:** `RF-03`, `RN-04`, `RN-05`, `RN-06`

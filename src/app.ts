@@ -6,6 +6,7 @@ import { AppError } from './errors/AppError.js';
 import { ErrorHandler } from './middlewares/ErrorHandler.js';
 import { createAuthRouter } from './routes/AuthRoutes.js';
 import { createClientesRouter } from './routes/ClientesRoutes.js';
+import { createEstacoesRouter } from './routes/EstacoesRoutes.js';
 
 export const createApp = (prisma: PrismaClient): Express => {
   const app = express();
@@ -14,6 +15,7 @@ export const createApp = (prisma: PrismaClient): Express => {
   app.use(express.json());
   app.use('/auth', createAuthRouter(prisma));
   app.use('/clientes', createClientesRouter(prisma));
+  app.use('/estacoes', createEstacoesRouter(prisma));
   app.use((_request, _response, next) => {
     next(
       new AppError(ErrorCodes.ROUTE_NOT_FOUND, 'Rota não encontrada.'),
