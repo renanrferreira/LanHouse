@@ -6,7 +6,7 @@ export class SessoesRepository {
     private readonly contexto: Prisma.TransactionClient = prisma,
   ) {}
 
-  // Executa a abertura com leituras atualizadas após cada bloqueio de linha.
+  // Executa operações com leituras atualizadas após cada bloqueio de linha.
   emTransacao<T>(operacao: (repository: SessoesRepository) => Promise<T>): Promise<T> {
     return this.prisma.$transaction(
       transacao => operacao(new SessoesRepository(this.prisma, transacao)),
@@ -24,6 +24,37 @@ export class SessoesRepository {
   async bloquearEstacao(id: string) {
     await this.contexto.$queryRaw`SELECT id FROM estacoes WHERE id = ${id} FOR UPDATE`;
     return this.contexto.estacao.findUnique({ where: { id } });
+  }
+
+  // Protege o encerramento contra alterações simultâneas na sessão.
+  async bloquearSessao(id: string) {
+    await this.contexto.$queryRaw`SELECT id FROM sessoes WHERE id = ${id} FOR UPDATE`;
+    return this.obterPorId(id);
+  }
+
+  // Debita créditos e insere o registro de auditoria na mesma transação.
+  async debitar(sessao: Sessao, valorCentavos: number, operadorId: string) {
+    const cliente = await this.contexto.cliente.update({
+      where: { id: sessao.clienteId },
+      data: { saldoCentavos: { decrement: valorCentavos } },
+    });
+    await this.contexto.transacaoCredito.create({ data: {
+      clienteId: cliente.id,
+      operadorId,
+      sessaoId: sessao.id,
+      tipo: 'DEBITO_SESSAO',
+      valorCentavos,
+      saldoAposCentavos: cliente.saldoCentavos,
+    } });
+  }
+
+  // Persiste o encerramento e libera a estação dentro da transação.
+  async encerrar(id: string, dados: Prisma.SessaoUncheckedUpdateInput): Promise<Sessao> {
+    const sessao = await this.contexto.sessao.update({ where: { id }, data: dados });
+    await this.contexto.estacao.update({
+      where: { id: sessao.estacaoId }, data: { status: 'DISPONIVEL' },
+    });
+    return sessao;
   }
 
   // Busca ocupações ainda não encerradas do cliente ou da estação.

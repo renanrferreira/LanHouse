@@ -2,7 +2,7 @@
 
 Contratos de requisição e resposta, catálogo de erros padronizado, paginação e contratos detalhados dos 3 CRUDs e endpoints de domínio.
 
-- **Versão:** 1.4
+- **Versão:** 1.5
 - **Data:** 17/11/2026
 - **Status:** aprovado
 
@@ -204,7 +204,15 @@ Categorias padronizadas: `COMUM`, `GAMER`, `HIGH_END`.
 
 ### 5.3 Endpoint Complexo: Encerrar Sessão (`POST /sessoes/:id/finalizar`)
 Realiza atomicamente cálculo temporal em UTC, apuração financeira por minuto, débito contábil e liberação física da máquina.
-- **Entrada:** `{}` (vazio)
+- **Entrada:** `{}` para encerramento normal; opcionalmente `{ "cancelamentoTecnico": true }` para informar problema técnico. O campo aceita somente booleano. Campos desconhecidos e parâmetros de query são recusados com `400 INVALID_INPUT`. O ID é texto não vazio de até 36 caracteres.
+- Exige autenticação de atendente; o operador de encerramento vem exclusivamente do JWT.
+- A duração em UTC é arredondada para cima em minutos iniciados. No pré-pago, os minutos cobrados são limitados aos minutos contratados, inclusive quando a sessão já está `PAUSADA`; o tempo posterior ao bloqueio não gera cobrança. `finalizadoEm` registra o instante do encerramento.
+- A tarifa aplicada é a ativa da categoria da estação no encerramento. Sem tarifa ativa, retorna `404 RATE_NOT_FOUND`. Duração ou valor final fora da capacidade INTEGER retorna `400 INVALID_INPUT`, sem efeitos parciais.
+- No pré-pago, debita o valor final do saldo e gera uma única transação `DEBITO_SESSAO`, com valor positivo, sessão, operador e saldo resultante. Saldo insuficiente retorna `422 INSUFFICIENT_FUNDS`, sem encerrar nem liberar a estação.
+- No pós-pago, o acerto é no balcão: retorna `pagoComSaldo: false`, mantém o saldo e não gera transação de créditos.
+- Cancelamento técnico com duração real estritamente menor que 3 minutos resulta em `CANCELADA`, valor zero e `pagoComSaldo: false`, sem débito ou transação de créditos. A partir de 3 minutos, o encerramento e a cobrança seguem normalmente. Um encerramento de valor zero também não gera transação de créditos.
+- Sessão inexistente retorna `404 SESSION_NOT_FOUND`; sessão `FINALIZADA` ou `CANCELADA` retorna `409 SESSION_ALREADY_FINISHED`. Encerramentos simultâneos têm somente um sucesso, sem débito duplicado.
+- Atualização da sessão, débito, histórico e liberação da estação para `DISPONIVEL` ocorrem na mesma transação ACID; qualquer falha desfaz as alterações. Atende `RF-05`, `RN-07`, `RN-09` a `RN-13` e `RN-15`.
 - **Saída (200 OK):**
   ```json
   {

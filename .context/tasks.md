@@ -2,7 +2,7 @@
 
 Lista das tasks para construir o projeto, na ordem de execução, com o teste de cada uma.
 
-- **Versão:** 1.5
+- **Versão:** 1.6
 - **Data:** 17/11/2026
 - **Marcação:** `[ ]` pendente e `[x]` concluída. Só o usuário permite marcar.
 
@@ -112,7 +112,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-04`, `RF-09`, `RN-05`, `RN-07`, `RN-08`, `RN-09`, `RN-10`
   - **Teste:** `tests/SessoesInicio.test.ts` (inicia sessão, muda máquina para `OCUPADA`, rejeita cliente já ocupado).
   - **Depende de:** Task 7, Task 8, Task 9.
-- [ ] **Task 12: Endpoint Complexo — Encerramento de Sessão e Tarifação**
+- [x] **Task 12: Endpoint Complexo — Encerramento de Sessão e Tarifação**
 
   - **Entrega:** Rota `POST /sessoes/:id/finalizar` com transação ACID, cálculo de tempo em minutos, débito e liberação da máquina.
   - **Atende:** `RF-05`, `RN-07`, `RN-09`, `RN-10`, `RN-11`, `RN-12`, `RN-13`, `RN-15`

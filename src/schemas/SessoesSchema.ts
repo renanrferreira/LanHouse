@@ -17,5 +17,8 @@ export const SessoesInicioSchema = z.discriminatedUnion('modalidade', [
 ]);
 
 export const SessoesParamsSchema = z.object({ id: identificadorSchema }).strict();
+export const SessoesFinalizarSchema = z.object({
+  cancelamentoTecnico: z.boolean().optional(),
+}).strict();
 export const SessoesQuerySchema = z.object({}).strict();
 export type SessoesInicio = z.infer<typeof SessoesInicioSchema>;

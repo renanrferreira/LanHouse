@@ -2,12 +2,22 @@ import type { RequestHandler } from 'express';
 import type { ZodType } from 'zod';
 import { ErrorCodes } from '../constants/ErrorCodes.js';
 import { AppError } from '../errors/AppError.js';
-import { SessoesInicioSchema, SessoesParamsSchema, SessoesQuerySchema } from '../schemas/SessoesSchema.js';
+import { SessoesFinalizarSchema, SessoesInicioSchema, SessoesParamsSchema, SessoesQuerySchema } from '../schemas/SessoesSchema.js';
 import type { AuthenticatedUsuario } from '../services/AuthService.js';
 import { SessoesService } from '../services/SessoesService.js';
 
 export class SessoesController {
   constructor(private readonly sessoesService: SessoesService) {}
+
+  // Encerra a sessão identificando o operador exclusivamente pelo token.
+  finalizar: RequestHandler = async (request, response) => {
+    this.validar(SessoesQuerySchema, request.query);
+    const { id } = this.validar(SessoesParamsSchema, request.params);
+    const { cancelamentoTecnico } = this.validar(SessoesFinalizarSchema, request.body);
+    const usuario: AuthenticatedUsuario = response.locals.usuario;
+    const dados = await this.sessoesService.finalizar(id, usuario.id, cancelamentoTecnico ?? false);
+    response.status(200).json({ sucesso: true, dados });
+  };
 
   // Inicia uma sessão identificando o operador pelo token autenticado.
   iniciar: RequestHandler = async (request, response) => {

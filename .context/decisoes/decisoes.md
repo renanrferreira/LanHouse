@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.8
+- **Versão:** 2.10
 - **Data:** 17/11/2026
 
 ## Índice
@@ -45,6 +45,8 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.28 | Conclusão da Task 10 — Créditos e transações financeiras | `processoIa` | aprovado |
 | 7.29 | Abertura e bloqueio de sessões pré-pagas | `api` | aprovado |
 | 7.30 | Conclusão da Task 11 — Abertura e monitoramento de sessões | `processoIa` | aprovado |
+| 7.31 | Encerramento, tarifação e cancelamento técnico de sessões | `api` | aprovado |
+| 7.32 | Conclusão da Task 12 — Encerramento e tarifação de sessões | `processoIa` | aprovado |
 
 ---
 
@@ -82,3 +84,5 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.28 | Marcar a Task 10 como concluída, com autorização do usuário após o relatório, a aprovação dos 23 testes e do typecheck. | Registrar a entrega das recargas atômicas e do extrato autenticado, atendendo RF-06, RF-07, RN-03, RN-13 e RN-15, e liberar as tasks dependentes. |
 | 7.29 | Exigir minutos contratados e saldo suficiente na abertura pré-paga, com bloqueio ao atingir o limite, conforme plano aprovado pelo usuário. O contrato 5.2 detalha o bloqueio lógico com `PAUSADA`, a ocupação até o encerramento, as consultas e a abertura atômica. | Concretizar RN-10 e os endpoints de RF-04 e RF-09. Os detalhes operacionais usam os estados existentes no modelo e permitem recuperar os limites após reiniciar a API. |
 | 7.30 | Marcar a Task 11 como concluída, após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 27 testes, o typecheck e a recuperação de sessões vencidas pela entrada real do servidor no banco de teste. | Registrar a entrega das três rotas de abertura e monitoramento, atendendo RF-04, RF-09 e RN-05 a RN-10, e liberar a task de encerramento de sessões. |
+| 7.31 | Aprovar o plano de encerramento com minutos iniciados arredondados para cima, limite contratado no pré-pago, acerto pós-pago no balcão e campo opcional `cancelamentoTecnico` com isenção abaixo de 3 minutos. O contrato 5.3 detalha a cobrança e a transação atômica. | Fechar as lacunas de arredondamento, pagamento e cancelamento técnico antes da implementação de RF-05 e RN-12, conforme autorização expressa do usuário. |
+| 7.32 | Marcar a Task 12 como concluída após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 32 testes no banco isolado e o typecheck. | Registrar a entrega do encerramento atômico, da cobrança em centavos, do débito pré-pago e do cancelamento técnico, atendendo RF-05, RN-07, RN-09 a RN-13 e RN-15, e liberar a task de documentação Swagger. |

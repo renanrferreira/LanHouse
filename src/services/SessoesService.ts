@@ -6,9 +6,78 @@ import type { SessoesInicio } from '../schemas/SessoesSchema.js';
 
 const MAX_VALOR_CENTAVOS = 2147483647;
 const INTERVALO_MONITORAMENTO_MS = 1000;
+const MINUTO_MS = 60_000;
+const CARENCIA_TECNICA_MS = 3 * MINUTO_MS;
 
 export class SessoesService {
   constructor(private readonly sessoesRepository: SessoesRepository) {}
+
+  // Apura a cobrança e encerra a ocupação sem efeitos financeiros parciais.
+  async finalizar(id: string, operadorFimId: string, cancelamentoTecnico = false) {
+    await this.sessoesRepository.bloquearExpiradas();
+    return this.sessoesRepository.emTransacao(async repository => {
+      const referencia = await repository.obterPorId(id);
+      if (!referencia) {
+        throw new AppError(ErrorCodes.SESSION_NOT_FOUND, 'Sessão não encontrada.');
+      }
+      // Mantém a ordem de bloqueios usada na abertura e nas operações de créditos.
+      const cliente = await repository.bloquearCliente(referencia.clienteId);
+      const estacao = await repository.bloquearEstacao(referencia.estacaoId);
+      const sessao = await repository.bloquearSessao(id);
+      if (!sessao) {
+        throw new AppError(ErrorCodes.SESSION_NOT_FOUND, 'Sessão não encontrada.');
+      }
+      if (sessao.status !== 'ATIVA' && sessao.status !== 'PAUSADA') {
+        throw new AppError(ErrorCodes.SESSION_ALREADY_FINISHED, 'A sessão já foi encerrada.');
+      }
+      if (!cliente || !estacao) {
+        throw new AppError(ErrorCodes.INTERNAL_SERVER_ERROR, 'Não foi possível encerrar a sessão.');
+      }
+      const tarifa = await repository.obterTarifa(estacao.categoria);
+      if (!tarifa) {
+        throw new AppError(ErrorCodes.RATE_NOT_FOUND, 'Tarifa ativa da categoria não encontrada.');
+      }
+      // O banco armazena os carimbos de sessão com precisão de segundos.
+      const finalizadoEm = new Date(Math.round(Date.now() / 1000) * 1000);
+      const duracaoMs = finalizadoEm.getTime() - sessao.iniciadoEm.getTime();
+      const minutosDecorridos = Math.ceil(duracaoMs / MINUTO_MS);
+      const prePaga = sessao.modalidade === 'PRE_PAGA';
+      if (duracaoMs < 0 || (prePaga && (sessao.minutosContratados ?? 0) <= 0)) {
+        throw new AppError(ErrorCodes.INVALID_INPUT, 'A duração da sessão é inválida.');
+      }
+      const minutosUtilizados = prePaga
+        ? Math.min(minutosDecorridos, sessao.minutosContratados!) : minutosDecorridos;
+      const cancelada = cancelamentoTecnico && duracaoMs < CARENCIA_TECNICA_MS;
+      const valorFinalCentavos = cancelada ? 0 : minutosUtilizados * tarifa.valorPorMinutoCentavos;
+      if (!Number.isSafeInteger(minutosUtilizados) || minutosUtilizados > MAX_VALOR_CENTAVOS ||
+        !Number.isSafeInteger(valorFinalCentavos) || valorFinalCentavos < 0 ||
+        valorFinalCentavos > MAX_VALOR_CENTAVOS) {
+        throw new AppError(ErrorCodes.INVALID_INPUT, 'A cobrança excede o limite permitido.');
+      }
+      const pagoComSaldo = prePaga && valorFinalCentavos > 0;
+      if (pagoComSaldo) {
+        if (cliente.saldoCentavos < valorFinalCentavos) {
+          throw new AppError(ErrorCodes.INSUFFICIENT_FUNDS, 'Saldo insuficiente para encerrar a sessão.');
+        }
+        await repository.debitar(sessao, valorFinalCentavos, operadorFimId);
+      }
+      const encerrada = await repository.encerrar(id, {
+        status: cancelada ? 'CANCELADA' : 'FINALIZADA',
+        operadorFimId, finalizadoEm, minutosUtilizados, valorFinalCentavos, pagoComSaldo,
+      });
+      return {
+        id: encerrada.id,
+        status: encerrada.status,
+        iniciadoEm: encerrada.iniciadoEm,
+        finalizadoEm: encerrada.finalizadoEm,
+        minutosUtilizados: encerrada.minutosUtilizados,
+        tarifaAplicadaPorMinutoCentavos: tarifa.valorPorMinutoCentavos,
+        valorFinalCentavos: encerrada.valorFinalCentavos,
+        pagoComSaldo: encerrada.pagoComSaldo,
+        estacaoLiberada: true,
+      };
+    });
+  }
 
   // Abre uma sessão com ocupação exclusiva e validação do limite pré-pago.
   async iniciar(dados: SessoesInicio, operadorInicioId: string) {
