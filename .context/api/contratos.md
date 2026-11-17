@@ -2,8 +2,8 @@
 
 Contratos de requisição e resposta, catálogo de erros padronizado, paginação e contratos detalhados dos 3 CRUDs e endpoints de domínio.
 
-- **Versão:** 1.3
-- **Data:** 14/11/2026
+- **Versão:** 1.4
+- **Data:** 17/11/2026
 - **Status:** aprovado
 
 ## 1. Formato Padrão de Resposta de Sucesso
@@ -167,6 +167,16 @@ Categorias padronizadas: `COMUM`, `GAMER`, `HIGH_END`.
 - **Limite de requisições:** São aceitas até 5 requisições por IP em 15 minutos, contando logins bem-sucedidos e falhos. Ao exceder o limite, a resposta é `429` com `RATE_LIMIT_EXCEEDED`, no formato padrão, e o cabeçalho `Retry-After` em segundos.
 
 ### 5.2 Iniciar Sessão (`POST /sessoes`)
+
+- As três rotas de sessões exigem autenticação de atendente. O operador de início vem exclusivamente do JWT. Campos desconhecidos em body, params ou query retornam `400 INVALID_INPUT`.
+- `clienteId` e `estacaoId` são identificadores não vazios de até 36 caracteres. Cliente inexistente ou inativo retorna `404 CLIENT_NOT_FOUND`. Estação inexistente retorna `404 STATION_NOT_FOUND`; estação inativa ou com status diferente de `DISPONIVEL` retorna `409 STATION_NOT_AVAILABLE`.
+- A abertura e a mudança da estação para `OCUPADA` são atômicas. Um cliente com sessão `ATIVA` ou `PAUSADA` não pode iniciar outra sessão (`409 CLIENT_ALREADY_HAS_ACTIVE_SESSION`), inclusive em requisições simultâneas.
+- Em `PRE_PAGA`, `minutosContratados` é obrigatório, inteiro positivo, e o saldo deve cobrir o valor dos minutos pela tarifa ativa da categoria (`422 INSUFFICIENT_FUNDS`). O valor estimado deve caber em INTEGER positivo (`400 INVALID_INPUT`). O débito ocorre no encerramento.
+- Em `POS_PAGA`, `minutosContratados` deve ser omitido. O valor estimado na abertura é zero e o valor final é apurado no encerramento. Ambas as modalidades exigem tarifa ativa da categoria (`404 RATE_NOT_FOUND`).
+- Ao atingir o tempo contratado, uma sessão pré-paga é bloqueada com status `PAUSADA`. A estação continua `OCUPADA` até o encerramento. A API verifica os limites a cada segundo e antes das operações de sessões, incluindo sessões persistidas antes de um reinício. Esse bloqueio é lógico na API, conforme o escopo de RF-04 e RN-10.
+- `GET /sessoes/ativas` retorna `{ "sucesso": true, "dados": [ ... ] }` com os registros completos das sessões `ATIVA` e `PAUSADA`, ordenados por `iniciadoEm` e `id` crescentes. Inclui as bloqueadas para acompanhamento até o encerramento.
+- `GET /sessoes/:id` retorna `{ "sucesso": true, "dados": { ... } }` com os campos persistidos da sessão, inclusive quando encerrada. Sessão inexistente retorna `404 SESSION_NOT_FOUND`. As consultas não aceitam parâmetros de query.
+
 - **Entrada:**
   ```json
   {

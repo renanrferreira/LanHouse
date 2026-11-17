@@ -2,8 +2,8 @@
 
 Lista das tasks para construir o projeto, na ordem de execução, com o teste de cada uma.
 
-- **Versão:** 1.4
-- **Data:** 13/11/2026
+- **Versão:** 1.5
+- **Data:** 17/11/2026
 - **Marcação:** `[ ]` pendente e `[x]` concluída. Só o usuário permite marcar.
 
 ---
@@ -106,7 +106,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-06`, `RF-07`, `RN-03`, `RN-13`, `RN-15`
   - **Teste:** `tests/Creditos.test.ts` (recarga incrementa saldo em centavos e gera registro imutável).
   - **Depende de:** Task 7.
-- [ ] **Task 11: Abertura e Monitoramento de Sessões**
+- [x] **Task 11: Abertura e Monitoramento de Sessões**
 
   - **Entrega:** Rotas `POST /sessoes`, `GET /sessoes/ativas` e `GET /sessoes/:id`.
   - **Atende:** `RF-04`, `RF-09`, `RN-05`, `RN-07`, `RN-08`, `RN-09`, `RN-10`

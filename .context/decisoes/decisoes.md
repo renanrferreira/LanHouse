@@ -2,8 +2,8 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.6
-- **Data:** 14/11/2026
+- **Versão:** 2.8
+- **Data:** 17/11/2026
 
 ## Índice
 
@@ -43,6 +43,8 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.26 | Ciclo de vida das tarifas por categoria | `negocio` | aprovado |
 | 7.27 | Contrato do extrato e integridade das recargas | `api` | aprovado |
 | 7.28 | Conclusão da Task 10 — Créditos e transações financeiras | `processoIa` | aprovado |
+| 7.29 | Abertura e bloqueio de sessões pré-pagas | `api` | aprovado |
+| 7.30 | Conclusão da Task 11 — Abertura e monitoramento de sessões | `processoIa` | aprovado |
 
 ---
 
@@ -78,3 +80,5 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.26 | Definir que cada categoria possui no máximo uma tarifa ativa, que POST substitui a tarifa vigente preservando histórico, que DELETE pode deixar a categoria sem tarifa e que GET por ID inclui inativas. | Alinhar a regra RN-14 ao contrato CRUD, preservar os valores históricos e manter uma única tarifa vigente por categoria. |
 | 7.27 | Retornar extrato sem paginação, em ordem decrescente de data e ID, incluindo transações de clientes inativos. Permitir recargas somente para clientes ativos, com operador do JWT e atualização atômica do saldo e histórico, respeitando a capacidade INTEGER. | Complementação aprovada pelo usuário no plano de implementação de créditos, para preservar auditoria e evitar perda de saldo em concorrência. |
 | 7.28 | Marcar a Task 10 como concluída, com autorização do usuário após o relatório, a aprovação dos 23 testes e do typecheck. | Registrar a entrega das recargas atômicas e do extrato autenticado, atendendo RF-06, RF-07, RN-03, RN-13 e RN-15, e liberar as tasks dependentes. |
+| 7.29 | Exigir minutos contratados e saldo suficiente na abertura pré-paga, com bloqueio ao atingir o limite, conforme plano aprovado pelo usuário. O contrato 5.2 detalha o bloqueio lógico com `PAUSADA`, a ocupação até o encerramento, as consultas e a abertura atômica. | Concretizar RN-10 e os endpoints de RF-04 e RF-09. Os detalhes operacionais usam os estados existentes no modelo e permitem recuperar os limites após reiniciar a API. |
+| 7.30 | Marcar a Task 11 como concluída, após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 27 testes, o typecheck e a recuperação de sessões vencidas pela entrada real do servidor no banco de teste. | Registrar a entrega das três rotas de abertura e monitoramento, atendendo RF-04, RF-09 e RN-05 a RN-10, e liberar a task de encerramento de sessões. |
