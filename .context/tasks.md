@@ -118,7 +118,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-05`, `RN-07`, `RN-09`, `RN-10`, `RN-11`, `RN-12`, `RN-13`, `RN-15`
   - **Teste:** `tests/SessoesFinalizar.test.ts` (encerra sessão, debita saldo pré-pago, calcula centavos e libera máquina).
   - **Depende de:** Task 10, Task 11.
-- [ ] **Task 13: Documentação com Swagger / OpenAPI**
+- [X] **Task 13: Documentação com Swagger / OpenAPI**
 
   - **Entrega:** Configuração da rota `/docs` com Swagger UI expondo os schemas e endpoints da API.
   - **Atende:** Requisito de documentação da disciplina.

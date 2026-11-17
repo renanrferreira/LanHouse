@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.10
+- **Versão:** 2.11
 - **Data:** 17/11/2026
 
 ## Índice
@@ -47,6 +47,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.30 | Conclusão da Task 11 — Abertura e monitoramento de sessões | `processoIa` | aprovado |
 | 7.31 | Encerramento, tarifação e cancelamento técnico de sessões | `api` | aprovado |
 | 7.32 | Conclusão da Task 12 — Encerramento e tarifação de sessões | `processoIa` | aprovado |
+| 7.33 | Conclusão da Task 13 — Documentação com Swagger / OpenAPI | `processoIa` | aprovado |
 
 ---
 
@@ -86,3 +87,4 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.30 | Marcar a Task 11 como concluída, após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 27 testes, o typecheck e a recuperação de sessões vencidas pela entrada real do servidor no banco de teste. | Registrar a entrega das três rotas de abertura e monitoramento, atendendo RF-04, RF-09 e RN-05 a RN-10, e liberar a task de encerramento de sessões. |
 | 7.31 | Aprovar o plano de encerramento com minutos iniciados arredondados para cima, limite contratado no pré-pago, acerto pós-pago no balcão e campo opcional `cancelamentoTecnico` com isenção abaixo de 3 minutos. O contrato 5.3 detalha a cobrança e a transação atômica. | Fechar as lacunas de arredondamento, pagamento e cancelamento técnico antes da implementação de RF-05 e RN-12, conforme autorização expressa do usuário. |
 | 7.32 | Marcar a Task 12 como concluída após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 32 testes no banco isolado e o typecheck. | Registrar a entrega do encerramento atômico, da cobrança em centavos, do débito pré-pago e do cancelamento técnico, atendendo RF-05, RN-07, RN-09 a RN-13 e RN-15, e liberar a task de documentação Swagger. |
+| 7.33 | Marcar a Task 13 como concluída após aprovação do usuário para concluir, fazer commit e push. Foram aprovados os 4 testes de Swagger/OpenAPI, a rota `/docs` com Swagger UI, a especificação cobrindo os 24 endpoints e o typecheck. | Registrar a entrega da documentação interativa OpenAPI 3.0 e Swagger UI na rota `/docs`, atendendo ao requisito RNF-01 e decisões 7.6 e 7.9. |

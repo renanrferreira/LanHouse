@@ -10,6 +10,7 @@ import { createCreditosRouter } from './routes/CreditosRoutes.js';
 import { createEstacoesRouter } from './routes/EstacoesRoutes.js';
 import { createTarifasRouter } from './routes/TarifasRoutes.js';
 import { createSessoesRouter } from './routes/SessoesRoutes.js';
+import { createDocsRouter } from './routes/DocsRoutes.js';
 
 export const createApp = (prisma: PrismaClient): Express => {
   const app = express();
@@ -22,6 +23,7 @@ export const createApp = (prisma: PrismaClient): Express => {
   app.use('/estacoes', createEstacoesRouter(prisma));
   app.use('/tarifas', createTarifasRouter(prisma));
   app.use('/sessoes', createSessoesRouter(prisma));
+  app.use('/docs', createDocsRouter());
   app.use((_request, _response, next) => {
     next(
       new AppError(ErrorCodes.ROUTE_NOT_FOUND, 'Rota não encontrada.'),
