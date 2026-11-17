@@ -124,7 +124,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** Requisito de documentação da disciplina.
   - **Teste:** `tests/Swagger.test.ts` (valida status 200 no Swagger UI e especificação OpenAPI).
   - **Depende de:** Task 12.
-- [ ] **Task 14: README com Instruções de Execução**
+- [X] **Task 14: README com Instruções de Execução**
 
   - **Entrega:** `README.md` completo na raiz com instruções de clonagem, inicialização do MySQL com Docker Compose, configuração de ambiente, execução de migrations, seed e testes.
   - **Atende:** Requisito de entrega e repositório do trabalho.

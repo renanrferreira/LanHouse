@@ -2,7 +2,7 @@
 
 Registro das decisões tomadas durante o desenvolvimento, com o porquê de cada uma.
 
-- **Versão:** 2.11
+- **Versão:** 2.12
 - **Data:** 17/11/2026
 
 ## Índice
@@ -48,6 +48,7 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.31 | Encerramento, tarifação e cancelamento técnico de sessões | `api` | aprovado |
 | 7.32 | Conclusão da Task 12 — Encerramento e tarifação de sessões | `processoIa` | aprovado |
 | 7.33 | Conclusão da Task 13 — Documentação com Swagger / OpenAPI | `processoIa` | aprovado |
+| 7.34 | Conclusão da Task 14 — README com instruções de execução | `processoIa` | aprovado |
 
 ---
 
@@ -88,3 +89,4 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.31 | Aprovar o plano de encerramento com minutos iniciados arredondados para cima, limite contratado no pré-pago, acerto pós-pago no balcão e campo opcional `cancelamentoTecnico` com isenção abaixo de 3 minutos. O contrato 5.3 detalha a cobrança e a transação atômica. | Fechar as lacunas de arredondamento, pagamento e cancelamento técnico antes da implementação de RF-05 e RN-12, conforme autorização expressa do usuário. |
 | 7.32 | Marcar a Task 12 como concluída após aprovação do relatório e autorização expressa do usuário para concluir, fazer commit e push. Foram aprovados os 32 testes no banco isolado e o typecheck. | Registrar a entrega do encerramento atômico, da cobrança em centavos, do débito pré-pago e do cancelamento técnico, atendendo RF-05, RN-07, RN-09 a RN-13 e RN-15, e liberar a task de documentação Swagger. |
 | 7.33 | Marcar a Task 13 como concluída após aprovação do usuário para concluir, fazer commit e push. Foram aprovados os 4 testes de Swagger/OpenAPI, a rota `/docs` com Swagger UI, a especificação cobrindo os 24 endpoints e o typecheck. | Registrar a entrega da documentação interativa OpenAPI 3.0 e Swagger UI na rota `/docs`, atendendo ao requisito RNF-01 e decisões 7.6 e 7.9. |
+| 7.34 | Marcar a Task 14 como concluída após criação do README.md completo na raiz com instruções de bootstrap, Docker Compose, migrations, seed, testes e Swagger, aprovação do typecheck e validação dos testes de documentação. | Registrar a entrega da documentação de execução do repositório, atendendo ao requisito de entrega do trabalho acadêmico e RNF-01. |
