@@ -236,5 +236,16 @@ Realiza atomicamente cálculo temporal em UTC, apuração financeira por minuto,
   }
   ```
 
-### 5.5 Documentação Interativa Swagger (`GET /docs`)
+### 5.5 Extrato de Créditos (`GET /creditos/extrato/:clienteId`)
+
+- **Saída (200 OK):** `{ "sucesso": true, "dados": [ { "id": "trx_01", "clienteId": "cli_01", "operadorId": "usr_01", "sessaoId": null, "tipo": "RECARGA", "valorCentavos": 2000, "saldoAposCentavos": 3500, "criadoEm": "2026-11-10T20:05:00.000Z" } ] }`
+- Retorna somente transações do cliente solicitado, da mais recente para a mais antiga (`criadoEm` decrescente, desempate por `id` decrescente), sem paginação. Sem transações, retorna `dados: []`.
+- Cliente inexistente retorna `404 CLIENT_NOT_FOUND`. Cliente inativo mantém o extrato disponível para auditoria, mas não pode receber recarga (`404 CLIENT_NOT_FOUND`).
+- Ambas as rotas de créditos exigem autenticação de atendente. O operador da recarga vem exclusivamente do JWT. Não existem rotas de alteração ou exclusão de transações.
+- A recarga incrementa o saldo e insere a transação na mesma transação de banco, preservando os registros anteriores, inclusive em recargas simultâneas.
+- `valorCentavos` deve ser número inteiro positivo compatível com o campo INTEGER; valor inválido ou saldo resultante acima de 2147483647 retorna `400 INVALID_CREDIT_AMOUNT`, sem alterar saldo nem histórico.
+- IDs devem ser textos não vazios de até 36 caracteres. Campos desconhecidos no corpo e parâmetros de consulta são recusados com `400 INVALID_INPUT`.
+- Atende `RF-06`, `RF-07`, `RN-03`, `RN-13` e `RN-15`.
+
+### 5.6 Documentação Interativa Swagger (`GET /docs`)
 - Retorna a interface gráfica interativa do Swagger UI com todo o esquema OpenAPI 3.0 montado para experimentação de todos os 24 endpoints.

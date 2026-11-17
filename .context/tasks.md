@@ -100,7 +100,7 @@ As tasks de implementação seguem rigorosamente a especificação aprovada. Cad
   - **Atende:** `RF-08`, `RN-13`, `RN-14`
   - **Teste:** `tests/Tarifas.test.ts` (testa as operações de CRUD e precisão de tarifas em centavos).
   - **Depende de:** Task 6, Task 6.1.
-- [ ] **Task 10: Créditos e Transações Financeiras**
+- [X] **Task 10: Créditos e Transações Financeiras**
 
   - **Entrega:** `CreditosController.ts`, `CreditosService.ts` e rotas `POST /creditos/recarga` e `GET /creditos/extrato/:clienteId`.
   - **Atende:** `RF-06`, `RF-07`, `RN-03`, `RN-13`, `RN-15`

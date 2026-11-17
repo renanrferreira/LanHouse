@@ -41,6 +41,8 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.24 | Recuperação de chave RSA somente em conexões MySQL locais | `dados` | aprovado |
 | 7.25 | Conclusão da Task 8 — CRUD de estações | `processoIa` | aprovado |
 | 7.26 | Ciclo de vida das tarifas por categoria | `negocio` | aprovado |
+| 7.27 | Contrato do extrato e integridade das recargas | `api` | aprovado |
+| 7.28 | Conclusão da Task 10 — Créditos e transações financeiras | `processoIa` | aprovado |
 
 ---
 
@@ -74,3 +76,5 @@ Temas: `processoIa`, `codigo`, `git`, `negocio`, `api`, `seguranca`, `dados`, `f
 | 7.24 | Permitir a recuperação da chave pública RSA pelo driver MySQL somente para hosts locais. | Fazer a autenticação `caching_sha2_password` funcionar no MySQL local de desenvolvimento e teste sem habilitar essa opção em conexões remotas. |
 | 7.25 | Marcar a Task 8 como concluída após validar as seis operações de estações, a suíte completa e o typecheck. | Registrar a entrega do CRUD de estações e liberar a implementação das tasks dependentes. |
 | 7.26 | Definir que cada categoria possui no máximo uma tarifa ativa, que POST substitui a tarifa vigente preservando histórico, que DELETE pode deixar a categoria sem tarifa e que GET por ID inclui inativas. | Alinhar a regra RN-14 ao contrato CRUD, preservar os valores históricos e manter uma única tarifa vigente por categoria. |
+| 7.27 | Retornar extrato sem paginação, em ordem decrescente de data e ID, incluindo transações de clientes inativos. Permitir recargas somente para clientes ativos, com operador do JWT e atualização atômica do saldo e histórico, respeitando a capacidade INTEGER. | Complementação aprovada pelo usuário no plano de implementação de créditos, para preservar auditoria e evitar perda de saldo em concorrência. |
+| 7.28 | Marcar a Task 10 como concluída, com autorização do usuário após o relatório, a aprovação dos 23 testes e do typecheck. | Registrar a entrega das recargas atômicas e do extrato autenticado, atendendo RF-06, RF-07, RN-03, RN-13 e RN-15, e liberar as tasks dependentes. |
