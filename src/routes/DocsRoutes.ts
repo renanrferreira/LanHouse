@@ -21,3 +21,4 @@ export const createDocsRouter = (): Router => {
 
   return router;
 };
+
